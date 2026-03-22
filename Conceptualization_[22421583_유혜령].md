@@ -10,7 +10,7 @@
 | Student No | 22421583 |
 | Name | 유혜령 |
 | E-mail | hry8585@yu.ac.kr |
-| GitHub | https://github.com/HyeRyeongYu/room-decision-assistant.git |
+| GitHub | https://github.com/HyeRyeongYu/room-decision-assistant |
 <br>
 
 ## Revision History
