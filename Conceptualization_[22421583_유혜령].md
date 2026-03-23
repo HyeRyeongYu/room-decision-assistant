@@ -21,6 +21,7 @@
 | 2026-03-22 | **0.2** | Business purpose |
 | 2026-03-22 | **0.3** | References |
 | 2026-03-23 | **0.4** | System context diagram |
+| 2026-03-24 | **0.5** | Use case list |
 <br>
 
 # 1. Business purpose
@@ -53,6 +54,20 @@ Figure 1. System Context Diagram
 - Calculate estimated cost : 주거 관련 예상 비용 계산
 - Provide customizable checklist : 사용자 맞춤 체크리스트 항목 제공
   
+<br>
+
+## 3. Use Case List
+| No | Use Case | Actor | Description |
+|:--:|----------|:-----:|------------|
+| 1 | Add room candidate | User | 사용자가 비교를 위해 새로운 방(매물)을 등록한다. |
+| 2 | Evaluate room with checklist | User | 사용자가 체크리스트의 필수 항목을 기준으로 방을 평가한다. |
+| 3 | Customize checklist | User | 사용자 맞춤 체크리스트 항목을 추가한다. |
+| 4 | Enter housing cost information | User | 사용자가 주거 비용 정보를 입력한다. |
+| 5 | Compare rooms | User | 사용자가 여러 후보 방의 비교를 요청한다. |
+| 6 | View recommended room | User | 사용자가 시스템이 추천하는 최적의 방 결과를 확인한다. |
+| 7 | Record room observations | User | 사용자가 후보 방에 대한 관찰 사항 등을 기록한다. |
+| 8 | Save evaluation results | User | 사용자가 후보 방에 대한 체크리스트 평가 기록을 저장한다. |
+
 <br>
 
 # 7. References
