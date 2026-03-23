@@ -20,6 +20,7 @@
 | 2026-03-21 | **0.1** | Initial draft |
 | 2026-03-22 | **0.2** | Business purpose |
 | 2026-03-22 | **0.3** | References |
+| 2026-03-23 | **0.4** | System context diagram |
 <br>
 
 # 1. Business purpose
@@ -29,6 +30,29 @@
 - 또한, 기존에 블로그나 유튜브 등의 매체에서 찾을 수 있는 체크리스트는 대부분 여러 매물을 비교할 수 있는 형태가 아닌, 단일 매물을 기준으로 체크리스트가 구성되어 있어, 종합적으로 매물들의 장단점을 비교하고, 판단하는 과정에 한계가 있다. 그리고 최종적으로 결정하기 전까지 여러 매물의 정보를 소비자가 개별적으로 관리하고 보관해야 하는 불편함이 존재한다.
 - 따라서, 본 프로젝트에서는 자취방 선택 과정에서 발생하는 문제들을 해결하기 위해, 사용자가 다양한 매물을 체계적으로 평가하고, 비교할 수 있도록 웹 기반의 의사결정 지원 시스템을 개발하고자 한다. 이 시스템은 중개대상물 확인·설명서의 항목과 내용을 바탕으로 체크리스트 기능을 제공하며, 각 매물에 대한 사용자의 평가 결과를 점수로 정량화하여 의사결정의 정확도를 높이고, 중요한 항목의 확인 누락을 방지함으로써, 중개 계약 이후의 리스크를 줄이는 것을 목표로 한다.
 
+<br>
+
+# 2. System context diagram
+
+![System Context Diagram](./system-context-diagram.png)
+
+Figure 1. System Context Diagram
+
+### (1) User → System
+- Input checklist items : 방(매물) 평가를 위한 체크리스트 항목 입력
+- Manage and Select rooms : 여러 방 후보 선택 및 관리
+- Record observations : 각 방에 대한 관찰 사항 및 메모 기록
+- Assign scores : 체크리스트 기준에 따른 평가 점수 부여
+- Request comparison : 서로 다른 방 후보 간의 비교 요청
+
+### (2) System → User
+- Provide checklist : 법적 가이드라인(중개대상물 확인·설명서)에 기반한 구조화된 체크리스트 제공
+- Calculate evaluation scores : 각 방에 대한 항목 평가 점수 계산 제공
+- Compare room candidates : 다수의 방 후보 간 비교 결과 제공
+- Suggest choice : 사용자 입력 및 평가를 기반으로 최적의 방 추천
+- Calculate estimated cost : 주거 관련 예상 비용 계산
+- Provide customizable checklist : 사용자 맞춤 체크리스트 항목 제공
+  
 <br>
 
 # 7. References
