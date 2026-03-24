@@ -19,7 +19,7 @@
 |:----:|:------:|:------------|
 | 2026-03-21 | **0.1** | Initial draft |
 | 2026-03-22 | **0.2** | Business purpose |
-| 2026-03-22 | **0.3** | Rreferences |
+| 2026-03-22 | **0.3** | References |
 | 2026-03-23 | **0.4** | System context diagram |
 | 2026-03-24 | **0.5** | Use case list |
 | 2026-03-24 | **0.6** | Concept of operation |
