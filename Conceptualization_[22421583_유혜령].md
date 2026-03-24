@@ -24,6 +24,7 @@
 | 2026-03-24 | **0.5** | Use case list |
 | 2026-03-24 | **0.6** | Concept of operation |
 | 2026-03-24 | **0.7** | Problem statement |
+| 2026-03-24 | **0.8** | Modify System Context Diagram |
 <br>
 
 # 1. Business purpose
@@ -47,14 +48,17 @@ Figure 1. System Context Diagram
 - Record observations : 각 방에 대한 관찰 사항 및 메모 기록
 - Assign scores : 체크리스트 기준에 따른 평가 점수 부여
 - Request comparison : 서로 다른 방 후보 간의 비교 요청
+- Save checklist file : 체크리스트 파일 저장 요청
+- Load checklist file : 체크리스트 파일 불러오기 요청
 
 ### (2) System → User
 - Provide checklist : 법적 가이드라인(중개대상물 확인·설명서)에 기반한 구조화된 체크리스트 제공
 - Calculate evaluation scores : 각 방에 대한 항목 평가 점수 계산 제공
 - Compare room candidates : 다수의 방 후보 간 비교 결과 제공
 - Suggest choice : 사용자 입력 및 평가를 기반으로 최적의 방 추천
-- Calculate estimated cost : 주거 관련 예상 비용 계산
 - Provide customizable checklist : 사용자 맞춤 체크리스트 항목 제공
+- Export checklist data : 체크리스트를 외부 파일로 저장할 수 있도록 제공
+- Import checklist data : 외부 체크리스트 파일을 불러올 수 있도록 제공
   
 <br>
 
