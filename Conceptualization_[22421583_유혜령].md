@@ -25,6 +25,7 @@
 | 2026-03-24 | **0.6** | Concept of operation |
 | 2026-03-24 | **0.7** | Problem statement |
 | 2026-03-24 | **0.8** | Modify System Context Diagram |
+| 2026-03-24 | **0.9** | Modify Use case list |
 <br>
 
 # 1. Business purpose
@@ -65,14 +66,16 @@ Figure 1. System Context Diagram
 # 3. Use Case List
 | No | Use Case | Actor | Description |
 |:--:|----------|:-----:|------------|
-| 1 | Add room candidate | User | 사용자가 비교를 위해 새로운 방(매물)을 등록한다. |
+| 1 | Add room candidate | User | 사용자가 비교를 위해 새로운 후보 방(매물)을 등록한다. |
 | 2 | Evaluate room with checklist | User | 사용자가 체크리스트의 필수 항목을 기준으로 방을 평가한다. |
 | 3 | Customize checklist | User | 사용자 맞춤 체크리스트 항목을 추가한다. |
 | 4 | Enter housing cost information | User | 사용자가 주거 비용 정보를 입력한다. |
 | 5 | Compare rooms | User | 사용자가 여러 후보 방의 비교를 요청한다. |
-| 6 | View recommended room | User | 사용자가 시스템이 추천하는 최적의 방 결과를 확인한다. |
-| 7 | Record room observations | User | 사용자가 후보 방에 대한 관찰 사항 등을 기록한다. |
-| 8 | Save evaluation results | User | 사용자가 후보 방에 대한 체크리스트 평가 기록을 저장한다. |
+| 6 | View recommended room | User | 사용자가 시스템이 추천하는 최적의 방을 확인한다. |
+| 7 | Record room observations | User | 사용자가 후보 방에 대한 관찰 사항 및 메모를 기록한다. |
+| 8 | Save evaluation results | User | 사용자가 후보 방에 대한 체크리스트 평가 결과와 기록 내용을 저장한다. |
+| 9 | Save checklist data | User | 사용자가 생성한 체크리스트 데이터를 외부 파일로 저장한다. |
+| 10 | Load checklist data | User | 사용자가 이전에 저장했던 체크리스트 외부 파일을 불러온다. |
 
 <br>
 
