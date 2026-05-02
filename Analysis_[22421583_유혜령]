@@ -1,0 +1,34 @@
+# Room Checkmate : Analysis Document
+
+- **A decision support web app for rental room selection**
+(자취방 선택을 위한 의사결정 지원 웹 애플리케이션)
+
+  <img src="./logo.png" width="300">
+
+| 항목 | 내용 |
+|:----:|:----:|
+| Student No | 22421583 |
+| Name | 유혜령 |
+| E-mail | hry8585@yu.ac.kr |
+| GitHub | https://github.com/HyeRyeongYu/room-decision-assistant |
+<br>
+
+## Revision History
+
+| Revision date | Version | Description |
+|:----:|:------:|:------------|
+| 2026-05-02 | **0.1** | Initial draft |
+<br>
+
+# = Contents =
+## 1. Introduction
+
+## 2. Use Case Analysis
+
+## 3. Domain analysis
+
+## 4. User Interface Prototype
+
+## 5. Glossary
+
+## 6. References
