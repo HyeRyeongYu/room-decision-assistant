@@ -30,6 +30,16 @@
 | 2026-05-08 | **1.0.1** | Content review and revision |
 <br>
 
+# = Contents =
+- [1. Business purpose](#1-business-purpose)
+- [2. System context diagram](#2-system-context-diagram)
+- [3. Use Case List](#3-use-case-list)
+- [4. Concept of operation](#4-concept-of-operation)
+- [5. Problem statement](#5-problem-statement)
+- [6. Glossary](#6-glossary)
+- [7. References](#7-references)
+<br>
+
 # 1. Business purpose
 
 - 예전부터 오늘날까지 2030세대는 학업과 취업 등의 이유로 자취를 시작하는 경우가 많다. 이 과정에서 원룸, 오피스텔 등의 다양한 주거 공간 중 하나를 선택해야 하며, 주거 환경을 직접 확인하고, 계약을 진행하는 과정에서 여러 요소에 관한 판단과 의사결정 상황에 놓이게 된다. 그러나, 관련 경험과 정보의 부족, 그리고 전문 용어에 대한 이해 부족으로 인해 계약 과정에서 어려움을 겪는 경우가 많다. 그 결과, 계약을 체결한 임차인(세입자)은 이전에 충분히 파악하지 못했던 문제를 뒤늦게 발견하고, 이를 해결해야 하는 상황에 직면하기도 한다.
