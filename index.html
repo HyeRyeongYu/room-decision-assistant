@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Checkmate</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+        
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="top-nav">
+  <button class="nav-btn active-nav" data-page="home">
+    <span class="nav-icon">&#127969;</span>
+    <span>홈</span>
+  </button>
+
+  <button class="nav-btn" data-page="create">
+    <span class="nav-icon">&#128203;</span>
+    <span>체크리스트</span>
+  </button>
+
+  <button class="nav-btn" data-page="compare">
+    <span class="nav-icon">&#9878;</span>
+    <span>비교&추천</span>
+  </button>
+
+  <button class="nav-btn" data-page="manage">
+    <span class="nav-icon">&#128194;</span>
+    <span>내 체크리스트 관리</span>
+  </button>
+</header>
+
+  <main>
+    <section id="homePage" class="page active">
+      <div class="home-layout">
+          <img src="./logo.png" alt="Room Checkmate Logo" class="logo-img" />
+        
+
+        <div class="home-text">
+          <h1>Your<br />Room<br />Checklist<br />Decision & Selection</h1>
+          <button class="outline-btn" data-page="create">WELCOME TO ROOM CHECKMATE</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="createPage" class="page">
+      <div class="create-layout">
+        <div class="create-form">
+          <h2>Checklist</h2>
+
+          <div class="form-group">
+            <h3>매물 유형 선택</h3>
+            <div class="option-row">
+              <label><input type="radio" name="roomType" value="원룸" /> 원룸</label>
+              <label><input type="radio" name="roomType" value="빌라" /> 빌라</label>
+              <label><input type="radio" name="roomType" value="오피스텔" /> 오피스텔</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h3>계약 유형 선택</h3>
+            <div class="option-row">
+              <label><input type="radio" name="contractType" value="전세" /> 전세</label>
+              <label><input type="radio" name="contractType" value="월세" /> 월세</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h3>체크리스트 이름</h3>
+            <input id="checklistTitle" class="text-input" type="text" placeholder="예: 조영동 위너스빌" />
+          </div>
+
+          <button id="createChecklistBtn" class="main-btn">체크리스트 생성</button>
+        </div>
+
+        <div class="create-images">
+          <div class="sample-room room-img-1"></div>
+          <div class="sample-room room-img-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="comparePage" class="page">
+      <h2>Checklist 비교 & 추천</h2>
+      <p>이 화면은 다음 단계에서 구현할 예정입니다.</p>
+    </section>
+
+    <section id="managePage" class="page">
+      <h2>내 체크리스트 관리</h2>
+      <div id="checklistList"></div>
+    </section>
+  </main>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
