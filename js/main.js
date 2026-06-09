@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupNavigation();
   setupCreateChecklist();
   renderChecklistList();
+  setupGroupTabs();
 });
 
 function setupNavigation() {
@@ -181,4 +182,26 @@ function showEvaluationHeader(checklist) {
   if (!roomInfo) return;
 
   roomInfo.textContent = `[${checklist.checklistTitle} / ${checklist.room.roomType} / ${checklist.room.contractType}]`;
+}
+
+function setupGroupTabs() {
+  const groupButtons = document.querySelectorAll(".group-btn");
+
+  groupButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const groupName = button.dataset.group;
+      if (!groupName) return;
+
+      groupButtons.forEach((btn) => btn.classList.remove("active-group"));
+      button.classList.add("active-group");
+
+      const groups = document.querySelectorAll(".eval-group");
+      groups.forEach((group) => group.classList.remove("active-eval-group"));
+
+      const targetGroup = document.getElementById(`group${groupName}`);
+      if (targetGroup) {
+        targetGroup.classList.add("active-eval-group");
+      }
+    });
+  });
 }

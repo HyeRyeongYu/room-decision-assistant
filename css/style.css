@@ -247,7 +247,7 @@ body {
   margin-bottom: 20px;
 }
 
-.evaluation-header p {
+#evaluationRoomInfo {
   font-size: 30px;
   font-weight: 700;
 }
@@ -362,10 +362,76 @@ body {
   gap: 10px;
 }
 
-td label {
-    font-weight: bold;
+.eval-group {
+  display: none;
 }
 
-.input-label {
-    font-weight: 600;
+.eval-group.active-eval-group {
+  display: block;
+}
+
+.table-cell p {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.table-cell label {
+  margin-right: 8px;
+}
+
+.other-input {
+  margin-left: 10px;
+  width: 180px;
+}
+
+.management-method {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.evaluation-notice {
+  margin-top: 16px;
+  max-width: 900px;
+  color: #6a605b;
+}
+
+.evaluation-notice p {
+  margin: 4px 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.detail-cell p {
+  margin: 10px 0 6px;
+  font-weight: 700;
+}
+
+.detail-cell p:first-child {
+  margin-top: 0;
+}
+
+.detail-cell label {
+  margin-right: 14px;
+  white-space: nowrap;
+}
+
+.small-input {
+  width: 90px;
+}
+
+.memo-input {
+  width: 220px;
+}
+
+.other-input {
+  width: 180px;
+  margin-left: 8px;
+}
+
+.custom-mark {
+    color: #c45b2d;
+    font-weight: 700;
+    margin-left: 2px;
 }
