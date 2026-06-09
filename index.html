@@ -89,6 +89,75 @@
       </div>
     </section>
 
+<section id="evaluationPage" class="page">
+  <div class="evaluation-header">
+    <p id="evaluationRoomInfo">[체크리스트 이름 / 매물 유형 / 계약 유형]</p>
+    <h2>Checklist</h2>
+  </div>
+
+  <div class="evaluation-actions">
+    <button class="sub-btn">맞춤 항목 추가</button>
+    <button class="sub-btn">체크리스트 저장</button>
+    <button class="sub-btn">체크리스트 총점수 계산</button>
+  </div>
+
+  <div class="evaluation-layout">
+    <aside class="group-menu">
+      <button class="group-btn active-group">A. 주거 비용</button>
+      <button class="group-btn">B. 내부 시설물 상태</button>
+      <button class="group-btn">C. 외부 시설물 상태</button>
+      <button class="group-btn">D. 환경 상태</button>
+      <button class="group-btn">E. 입지 조건</button>
+      <button class="group-btn">F. 사용자 맞춤</button>
+      <button class="group-btn">G. 메모</button>
+    </aside>
+
+    <section class="evaluation-content">
+      <h3>A. 주거 비용</h3>
+
+      <div class="cost-table">
+        <div class="table-head">항목</div>
+        <div class="table-head">확인 / 평가 사항</div>
+        <div class="table-head">법률 설명 / 부가 설명</div>
+
+        <div class="table-cell item-name">관리비</div>
+        <div class="table-cell">
+          <label>금액 총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 원
+        </div>
+        <div class="table-cell">매월 납부하는 관리비 금액을 입력합니다.</div>
+
+        <div class="table-cell item-name">관리비 포함 비목</div>
+        <div class="table-cell check-list">
+          <label><input type="checkbox" /> 전기료</label>
+          <label><input type="checkbox" /> 수도료</label>
+          <label><input type="checkbox" /> 가스 사용료</label>
+          <label><input type="checkbox" /> 난방비</label>
+          <label><input type="checkbox" /> 인터넷 사용료</label>
+          <label><input type="checkbox" /> TV 수신료</label>
+        </div>
+        <div class="table-cell">
+          월 관리비에 이미 포함되어 있어 별도로 납부하지 않아도 되는 세부 항목입니다.
+        </div>
+
+        <div class="table-cell item-name">월세(전세)</div>
+        <div class="table-cell">
+          <label>금액 총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 원
+        </div>
+        <div class="table-cell">계약 유형에 따른 월세 또는 전세 금액을 입력합니다.</div>
+
+        <div class="table-cell item-name">보증금</div>
+        <div class="table-cell">
+          <label>금액 총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 원
+        </div>
+        <div class="table-cell">계약 시 필요한 보증금 금액을 입력합니다.</div>
+      </div>
+    </section>
+  </div>
+</section>
+
     <section id="comparePage" class="page">
       <h2>Checklist 비교 & 추천</h2>
       <p>이 화면은 다음 단계에서 구현할 예정입니다.</p>

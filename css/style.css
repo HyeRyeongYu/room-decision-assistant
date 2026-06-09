@@ -234,3 +234,138 @@ body {
   border-radius: 12px;
   background-color: #fffaf0;
 }
+
+.item-name {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.evaluation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.evaluation-header p {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.evaluation-header h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: 64px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.evaluation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.sub-btn {
+  padding: 12px 20px;
+  border: 2px solid #7b685e;
+  border-radius: 20px;
+  background-color: #fffaf0;
+  font-family: "Pretendard", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sub-btn:hover {
+  background-color: #e5dccd;
+}
+
+.evaluation-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 32px;
+}
+
+.group-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.group-btn {
+  padding: 16px;
+  border: 2px solid #c9beb3;
+  border-radius: 18px;
+  background-color: #fffaf0;
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.group-btn.active-group,
+.group-btn:hover {
+  background-color: #c45b2d;
+  color: white;
+  border-color: #c45b2d;
+}
+
+.evaluation-content {
+  background-color: #fffaf0;
+  border: 2px solid #d7ccbd;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.evaluation-content h3 {
+  margin-top: 0;
+  font-size: 30px;
+}
+
+.cost-table {
+  display: grid;
+  grid-template-columns: 180px 1.4fr 1.6fr;
+  border: 2px solid #7b685e;
+}
+
+.table-head {
+  padding: 16px;
+  background-color: #d8cdbd;
+  border-right: 1px solid #7b685e;
+  border-bottom: 2px solid #7b685e;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.table-cell {
+  padding: 16px;
+  border-right: 1px solid #7b685e;
+  border-bottom: 1px solid #7b685e;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cost-input {
+  width: 120px;
+  padding: 8px 12px;
+  border: 1px solid #9c8f84;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.check-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+td label {
+    font-weight: bold;
+}
+
+.input-label {
+    font-weight: 600;
+}

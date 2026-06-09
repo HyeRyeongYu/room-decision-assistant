@@ -110,7 +110,9 @@ function setupCreateChecklist() {
     clearRadio("roomType");
     clearRadio("contractType");
 
-    showPage("manage");
+    setCurrentChecklist(checklist);
+    showEvaluationHeader(checklist);
+    showPage("evaluation");
   });
 }
 
@@ -167,4 +169,16 @@ function getTodayString() {
   const date = String(today.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${date}`;
+}
+
+function setCurrentChecklist(checklist) {
+  localStorage.setItem("currentChecklistId", checklist.id);
+}
+
+function showEvaluationHeader(checklist) {
+  const roomInfo = document.getElementById("evaluationRoomInfo");
+
+  if (!roomInfo) return;
+
+  roomInfo.textContent = `[${checklist.checklistTitle} / ${checklist.room.roomType} / ${checklist.room.contractType}]`;
 }
