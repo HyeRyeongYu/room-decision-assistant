@@ -676,6 +676,162 @@
   </div>
 </div>
 
+<div id="groupD" class="eval-group">
+  <h3>D. 환경 상태</h3>
+
+  <div class="cost-table">
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+    <div class="table-cell item-name">일조량</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="sunlightLevel" value="상"> 상</label>
+      <label><input type="radio" name="sunlightLevel" value="중"> 중</label>
+      <label><input type="radio" name="sunlightLevel" value="하"> 하</label>
+
+      <p>불충분 이유</p>
+      <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      채광 상태와 일조량이 부족한 이유를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">소음</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="noiseLevel" value="상"> 상</label>
+      <label><input type="radio" name="noiseLevel" value="중"> 중</label>
+      <label><input type="radio" name="noiseLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      외부 소음이나 층간 소음 등 생활 소음 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">진동</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="vibrationLevel" value="상"> 상</label>
+      <label><input type="radio" name="vibrationLevel" value="중"> 중</label>
+      <label><input type="radio" name="vibrationLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      주변 도로, 철도, 공사 등으로 인한 진동 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">지형</div>
+    <div class="table-cell detail-cell">
+      <p>경사도</p>
+      <label><input type="radio" name="slopeLevel" value="상"> 상</label>
+      <label><input type="radio" name="slopeLevel" value="중"> 중</label>
+      <label><input type="radio" name="slopeLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      건물 주변 지형의 경사 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">벌레</div>
+    <div class="table-cell detail-cell">
+      <p>존재 여부</p>
+      <label><input type="radio" name="bugExists" value="있음"> 있음</label>
+      <label><input type="radio" name="bugExists" value="없음"> 없음</label>
+
+      <p>상태 정도</p>
+      <label><input type="radio" name="bugLevel" value="상"> 상</label>
+      <label><input type="radio" name="bugLevel" value="중"> 중</label>
+      <label><input type="radio" name="bugLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      단순한 일회성 벌레가 아닌 구조적 문제로 인한 지속적인 벌레 발생 여부를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">
+  침수 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>장마철 침수 여부</p>
+  <label><input type="radio" name="floodExists" value="있음"> 있음</label>
+  <label><input type="radio" name="floodExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="floodLevel" value="상"> 상</label>
+  <label><input type="radio" name="floodLevel" value="중"> 중</label>
+  <label><input type="radio" name="floodLevel" value="하"> 하</label>
+
+  <p>침수 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  장마철 또는 폭우 시 침수 가능성과 침수 흔적이 있는 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  곰팡이 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>존재 여부</p>
+  <label><input type="radio" name="moldExists" value="있음"> 있음</label>
+  <label><input type="radio" name="moldExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="moldLevel" value="상"> 상</label>
+  <label><input type="radio" name="moldLevel" value="중"> 중</label>
+  <label><input type="radio" name="moldLevel" value="하"> 하</label>
+
+  <p>곰팡이 발생 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  곰팡이 존재 여부와 발생 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  환풍 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>환풍기 유무</p>
+  <label><input type="radio" name="ventilatorExists" value="있음"> 있음</label>
+  <label><input type="radio" name="ventilatorExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="ventilationLevel" value="상"> 상</label>
+  <label><input type="radio" name="ventilationLevel" value="중"> 중</label>
+  <label><input type="radio" name="ventilationLevel" value="하"> 하</label>
+
+  <p>관련 요소</p>
+  <label><input type="checkbox"> 창문</label>
+  <label><input type="checkbox"> 환기</label>
+  <label><input type="checkbox"> 악취</label>
+
+  <p>악취 발생 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  환풍기, 창문, 환기 상태 및 악취 발생 여부와 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  배출 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>종류</p>
+  <label><input type="checkbox"> 일반 쓰레기</label>
+  <label><input type="checkbox"> 음식물 쓰레기</label>
+  <label><input type="checkbox"> 재활용 쓰레기</label>
+
+  <p>배출요일</p>
+  <input class="cost-input memo-input" type="text" placeholder="예: 월/수/금">
+
+  <p>위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  쓰레기 배출 종류, 배출요일, 배출 위치를 확인합니다.
+</div>
+  </div>
+</div>
+
     </section>
 
     <section id="comparePage" class="page">

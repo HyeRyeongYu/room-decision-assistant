@@ -66,40 +66,40 @@ function setupCreateChecklist() {
     const now = getTodayString();
 
     const checklist = {
-      id: Date.now(),
-      checklistTitle: title,
-      room: {
-        roomType,
-        contractType
-      },
-      housingCost: {
-        managementFee: 0,
-        rentCost: 0,
-        deposit: 0,
-        includedItems: {
-          electricity: false,
-          water: false,
-          gas: false,
-          heating: false,
-          internet: false,
-          tv: false
-        },
-        description: ""
-      },
-      evaluationItems: [],
-      customItems: [],
-      memo: {
-        itemName: "",
-        content: ""
-      },
-      evaluationResult: {
-        totalScore: 0,
-        groupScores: {},
-        topRatedItemCount: 0
-      },
-      createdDate: now,
-      modifiedDate: now
-    };
+  checklistTitle: title,
+  room: {
+    roomType,
+    contractType
+  },
+  housingCost: {
+    managementFee: 0,
+    rentCost: 0,
+    deposit: 0,
+    description: "",
+    includedItems: {
+      electricity: false,
+      water: false,
+      gas: false,
+      heating: false,
+      internet: false,
+      tv: false
+    }
+  },
+  evaluationItems: [],
+  customItems: [],
+  maxCustomItemCount: 5,
+  memo: {
+    itemName: "",
+    content: ""
+  },
+  evaluationResult: {
+    totalScore: 0,
+    groupScores: {},
+    topRatedItemCount: 0
+  },
+  createdDate: now,
+  modifiedDate: now
+};
 
     const checklists = loadChecklists();
     checklists.push(checklist);
