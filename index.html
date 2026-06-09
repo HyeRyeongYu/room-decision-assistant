@@ -493,6 +493,186 @@
 <div class="table-cell">
   제공되는 옵션의 종류와 고장 여부 및 상태를 확인합니다.
 </div>
+</div>
+</div>
+
+<div id="groupC" class="eval-group">
+
+  <h3>C. 외부 시설물 상태</h3>
+
+  <div class="cost-table">
+
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+<div class="table-cell item-name">승강기</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="elevatorExists" value="있음"> 있음</label>
+  <label><input type="radio" name="elevatorExists" value="없음"> 없음</label>
+
+  <p>정상 여부</p>
+  <label><input type="radio" name="elevatorStatus" value="정상"> 정상</label>
+  <label><input type="radio" name="elevatorStatus" value="이상 있음"> 이상 있음</label>
+  <label><input type="radio" name="elevatorStatus" value="해당 사항 없음"> 해당 사항 없음</label>
+
+</div>
+
+<div class="table-cell">
+  건물 내 승강기 설치 여부 및 정상 작동 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">관리실</div>
+
+<div class="table-cell detail-cell">
+
+  <p>관리실 존재 여부</p>
+  <label><input type="radio" name="officeExists" value="있음"> 있음</label>
+  <label><input type="radio" name="officeExists" value="없음"> 없음</label>
+
+  <p>건물 내부 CCTV</p>
+  <label><input type="radio" name="insideCctv" value="있음"> 있음</label>
+  <label><input type="radio" name="insideCctv" value="없음"> 없음</label>
+  <p>수량</p>
+  <input
+    class="cost-input small-input"
+    type="number"
+    placeholder="0"
+  />
+
+</div>
+
+<div class="table-cell">
+  관리실 운영 여부와 건물 내부 CCTV 설치 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">주변 CCTV</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="outsideCctvExists" value="있음"> 있음</label>
+  <label><input type="radio" name="outsideCctvExists" value="없음"> 없음</label>
+
+  <p>수량</p>
+  <input
+    class="cost-input small-input"
+    type="number"
+    placeholder="0"
+  />
+
+</div>
+
+<div class="table-cell">
+  건물 주변 CCTV 설치 여부와 수량을 확인합니다.
+</div>
+
+<div class="table-cell item-name">비상구</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="emergencyExitExists" value="있음"> 있음</label>
+  <label><input type="radio" name="emergencyExitExists" value="없음"> 없음</label>
+
+  <p>위치</p>
+  <label><input type="radio" name="emergencyExitLocation" value="건물 내부"> 건물 내부</label>
+  <label><input type="radio" name="emergencyExitLocation" value="건물 외부"> 건물 외부</label>
+  <label><input type="radio" name="emergencyExitLocation" value="그 외"> 그 외</label>
+
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  비상구 설치 여부와 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">벽면 및 상하부</div>
+
+<div class="table-cell detail-cell">
+
+  <p>정상 여부</p>
+
+  <label>
+    <input type="radio" name="buildingWallStatus" value="정상">
+    정상
+  </label>
+
+  <label>
+    <input type="radio" name="buildingWallStatus" value="이상 있음">
+    이상 있음
+  </label>
+<input
+    class="cost-input other-input"
+    type="text"
+    placeholder="이상 위치 입력"
+  />
+</div>
+
+<div class="table-cell">
+  건물 외벽 및 천장의 균열, 탈락, 누수 흔적 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  건물 관리 상태 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>공용부 파손 여부</p>
+
+  <label>
+    <input type="radio" name="commonAreaDamage" value="없음">
+    없음
+  </label>
+
+  <label>
+    <input type="radio" name="commonAreaDamage" value="있음">
+    있음
+  </label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="이상 위치 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  복도, 계단, 출입구 등 공용 공간의 파손 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  공동 현관 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>잠금 여부</p>
+
+  <label>
+    <input type="radio" name="mainEntranceLock" value="잠금">
+    잠금
+  </label>
+
+  <label>
+    <input type="radio" name="mainEntranceLock" value="미잠금">
+    미잠금
+  </label>
+
+</div>
+
+<div class="table-cell">
+  공동 현관 출입 통제 여부를 확인합니다.
+</div>
   </div>
 </div>
 
