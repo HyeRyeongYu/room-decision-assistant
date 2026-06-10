@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
     addCustomItem()
     setupScoreCalculation();
     saveChecklist();
+    renderCompareChecklistList();
+    setupCompareTotalScore();
+    setupCompareTopRated();
 });
 
 function setupNavigation() {
@@ -25,7 +28,7 @@ function showPage(pageName) {
     pages.forEach((page) => page.classList.remove("active"));
 
     const targetPage = document.getElementById(`${pageName}Page`);
-    console.log("이동할 페이지:", pageName, targetPage);
+    
     if (targetPage) {
         targetPage.classList.add("active");
     }
@@ -115,11 +118,45 @@ function createChecklist() {
         document.getElementById("checklistTitle").value = "";
         clearRadio("roomType");
         clearRadio("contractType");
-
+        resetEvaluationForm();
         setCurrentChecklist(checklist);
         showEvaluationHeader(checklist);
         showPage("evaluation");
     });
+}
+
+function resetEvaluationForm() {
+    document.querySelectorAll("#evaluationPage input[type='radio']")
+        .forEach((input) => {
+            input.checked = false;
+        });
+
+    document.querySelectorAll("#evaluationPage input[type='checkbox']")
+        .forEach((input) => {
+            input.checked = false;
+        });
+
+    document.querySelectorAll("#evaluationPage input[type='text']")
+        .forEach((input) => {
+            input.value = "";
+        });
+
+    document.querySelectorAll("#evaluationPage input[type='number']")
+        .forEach((input) => {
+            input.value = "";
+        });
+
+    document.querySelectorAll("#evaluationPage textarea")
+        .forEach((textarea) => {
+            textarea.value = "";
+        });
+
+    const customList = document.getElementById("customItemList");
+
+    if (customList) {
+        customList.innerHTML =
+            '<p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>';
+    }
 }
 
 function getSelectedValue(name) {
@@ -323,8 +360,7 @@ const SCORE_GROUPS = {
         "furnitureLevel", "optionLevel"
     ],
     D: [
-        "sunlightLevel", "noiseLevel", "vibrationLevel", "slopeLevel",
-        "bugLevel", "floodLevel", "moldLevel", "ventilationLevel"
+        "sunlightLevel", "noiseLevel", "vibrationLevel", "slopeLevel", "ventilationLevel"
     ],
     E: [
         "roadCondition", "roadAccess", "parkingLevel",
@@ -338,10 +374,10 @@ function setupScoreCalculation() {
     if (!scoreButton) return;
 
     scoreButton.addEventListener("click", () => {
-        const score = convertToScore(selected.value);
+        const result = calculateTotalScore();
 
         alert(
-            `총점수: ${result.totalScore} / 140점\n` +
+            `총점수: ${result.totalScore} / 125점\n` +
             `상위 평가 항목 개수: ${result.topRatedItemCount}개\n\n` +
             `B그룹: ${result.groupScores.B}점\n` +
             `D그룹: ${result.groupScores.D}점\n` +
@@ -362,7 +398,7 @@ function calculateTotalScore() {
             const selected = document.querySelector(`input[name="${name}"]:checked`);
             if (!selected) return;
 
-            const score = SCORE_MAP[selected.value] || 0;
+            const score = convertToScore(selected.value);
             groupScore += score;
 
             if (score === 5) {
@@ -422,6 +458,7 @@ function saveChecklist() {
 
         alert("체크리스트가 저장되었습니다.");
         renderChecklistList();
+        renderCompareChecklistList();
     });
 }
 
@@ -494,17 +531,210 @@ function convertToScore(level) {
 }
 
 function deleteChecklist(checklistId) {
-  const confirmDelete = confirm("해당 체크리스트를 삭제하시겠습니까?");
+    const confirmDelete = confirm("해당 체크리스트를 삭제하시겠습니까?");
 
-  if (!confirmDelete) return;
+    if (!confirmDelete) return;
 
-  const checklists = loadChecklists();
-  const updatedChecklists = checklists.filter(
-    (checklist) => checklist.id !== checklistId
-  );
+    const checklists = loadChecklists();
+    const updatedChecklists = checklists.filter(
+        (checklist) => checklist.id !== checklistId
+    );
 
-  saveChecklists(updatedChecklists);
-  renderChecklistList();
+    saveChecklists(updatedChecklists);
+    renderChecklistList();
+    renderCompareChecklistList();
 
-  alert("체크리스트가 삭제되었습니다.");
+    alert("체크리스트가 삭제되었습니다.");
+}
+
+function generateCompareResult(checklists, comparisonType) {
+  if (comparisonType === "totalScore") {
+    return checklists.map((checklist) => ({
+        checklistTitle: checklist.checklistTitle,
+        roomType: checklist.room?.roomType || "-",
+        contractType: checklist.room?.contractType || "-",
+        totalScore: checklist.evaluationResult?.totalScore || 0,
+        housingCost: checklist.housingCost
+    }));
+  }
+
+  if (comparisonType === "topRated") {
+    return checklists.map((checklist) => ({
+      checklistTitle: checklist.checklistTitle,
+      groupTopRatedCounts: calculateTopRatedCounts(checklist)
+    }));
+  }
+
+  return [];
+}
+
+function renderCompareChecklistList() {
+    const listArea = document.getElementById("compareChecklistList");
+    if (!listArea) return;
+
+    const checklists = loadChecklists();
+
+    if (checklists.length === 0) {
+        listArea.innerHTML = "<p>저장된 체크리스트가 없습니다.</p>";
+        return;
+    }
+
+    listArea.innerHTML = checklists
+        .map((checklist, index) => {
+            return `
+  <label class="compare-checklist-item">
+    <span class="compare-list-number">${index + 1}</span>
+
+    <div class="compare-list-info">
+      <strong>${checklist.checklistTitle}</strong>
+      <small>${checklist.room?.roomType || "-"} / ${checklist.room?.contractType || "-"}</small>
+    </div>
+
+    <input class="compare-select-checkbox" type="checkbox" value="${checklist.id}">
+  </label>
+`;
+        })
+        .join("");
+}
+
+function setupCompareTotalScore() {
+    const button = document.getElementById("compareTotalScoreBtn");
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+        const selectedChecklists = getSelectedCompareChecklists();
+
+        if (selectedChecklists.length < 2) {
+            alert("비교할 체크리스트를 최소 2개 이상 선택해주세요.");
+            return;
+        }
+
+        if (selectedChecklists.length > 3) {
+            alert("체크리스트는 최대 3개까지 비교할 수 있습니다.");
+            return;
+        }
+
+        const compareResult = generateCompareResult(selectedChecklists, "totalScore");
+        renderTotalScoreResult(compareResult);
+        showPage("compareTotalScore");
+    });
+}
+
+function getSelectedCompareChecklists() {
+    const selectedIds = Array.from(
+        document.querySelectorAll("#compareChecklistList input[type='checkbox']:checked")
+    ).map((input) => Number(input.value));
+
+    const checklists = loadChecklists();
+
+    return checklists.filter((checklist) =>
+        selectedIds.includes(checklist.id)
+    );
+}
+
+function renderTotalScoreResult(compareResult) {
+  const resultArea = document.getElementById("totalScoreResultList");
+  if (!resultArea) return;
+
+  resultArea.innerHTML = compareResult
+    .map((result) => {
+      const housingCost = result.housingCost || {};
+      const managementFee = housingCost.managementFee || 0;
+      const rentCost = housingCost.rentCost || 0;
+      const deposit = housingCost.deposit || 0;
+      const housingCostText = `${rentCost} / ${managementFee} / ${deposit}`;
+
+      return `
+        <div class="house-result-card">
+          <img class="house-frame-img" src="./assets/right-house-frame.png" alt="집 모양 결과 카드">
+
+          <div class="house-result-content">
+            <h3>[${result.checklistTitle}]</h3>
+            <p>${result.roomType} / ${result.contractType}</p>
+            <p class="cost-info">주거비용 : ${housingCostText}</p>
+            <p>총점수 : ${result.totalScore}점</p>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function setupCompareTopRated() {
+    const button = document.getElementById("compareTopRatedBtn");
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+        const selectedChecklists = getSelectedCompareChecklists();
+
+        if (selectedChecklists.length < 2) {
+            alert("비교할 체크리스트를 최소 2개 이상 선택해주세요.");
+            return;
+        }
+
+        if (selectedChecklists.length > 3) {
+            alert("체크리스트는 최대 3개까지 비교할 수 있습니다.");
+            return;
+        }
+
+        const compareResult = generateCompareResult(selectedChecklists, "topRated");
+        renderTopRatedResult(compareResult);
+        showPage("compareTopRated");
+    });
+}
+
+const TOP_RATED_GROUP_TOTALS = {
+    B: 12,
+    D: 5,
+    E: 8
+};
+
+function calculateTopRatedCounts(checklist) {
+    const result = {
+        B: 0,
+        D: 0,
+        E: 0
+    };
+
+    if (!checklist.evaluationItems) return result;
+
+    checklist.evaluationItems.forEach((item) => {
+        if (convertToScore(item.evaluationLevel) !== 5) return;
+
+        if (item.groupTitle.includes("B.")) {
+            result.B += 1;
+        } else if (item.groupTitle.includes("D.")) {
+            result.D += 1;
+        } else if (item.groupTitle.includes("E.")) {
+            result.E += 1;
+        }
+    });
+
+    return result;
+}
+
+function renderTopRatedResult(compareResult) {
+  const resultArea = document.getElementById("topRatedResultList");
+  if (!resultArea) return;
+
+  resultArea.innerHTML = compareResult
+    .map((result) => {
+      const counts = result.groupTopRatedCounts;
+      const totalTopRated = counts.B + counts.D + counts.E;
+
+      return `
+        <div class="house-result-card">
+          <img class="house-frame-img" src="./assets/right-house-frame.png" alt="집 모양 결과 카드">
+
+          <div class="house-result-content top-rated-content">
+            <h3>[${result.checklistTitle}]</h3>
+            <p>B그룹 : ${counts.B} / 총 ${TOP_RATED_GROUP_TOTALS.B}개</p>
+            <p>D그룹 : ${counts.D} / 총 ${TOP_RATED_GROUP_TOTALS.D}개</p>
+            <p>E그룹 : ${counts.E} / 총 ${TOP_RATED_GROUP_TOTALS.E}개</p>
+            <p class="top-rated-total">총 상위 평가 : ${totalTopRated}개</p>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
 }

@@ -137,7 +137,7 @@
         <div class="table-cell item-name">관리비</div>
         <div class="table-cell">
           <label>금액  총</label>
-          <input class="cost-input" type="number" placeholder="0" /> 원
+          <input class="cost-input" type="number" placeholder="0" /> 만원
         </div>
         <div class="table-cell">매월 납부하는 관리비 금액을 입력합니다.</div>
 
@@ -165,14 +165,14 @@
         <div class="table-cell item-name">월세(전세)</div>
         <div class="table-cell">
           <label>금액  총</label>
-          <input class="cost-input" type="number" placeholder="0" /> 원
+          <input class="cost-input" type="number" placeholder="0" /> 만원
         </div>
         <div class="table-cell">계약 유형에 따른 월세 또는 전세 금액을 입력합니다.</div>
 
         <div class="table-cell item-name">보증금</div>
         <div class="table-cell">
           <label>금액  총</label>
-          <input class="cost-input" type="number" placeholder="0" /> 원
+          <input class="cost-input" type="number" placeholder="0" /> 만원
         </div>
         <div class="table-cell">계약 시 필요한 보증금 금액을 입력합니다.</div>
       </div>
@@ -1095,9 +1095,72 @@
      </section> 
 
     <section id="comparePage" class="page">
-      <h2>Checklist 비교 & 추천</h2>
-      <p>이 화면은 다음 단계에서 구현할 예정입니다.</p>
+  <div class="compare-header">
+    <h2>Checklist 비교 & 추천</h2>
+    <p>저장된 체크리스트를 선택하여 후보 매물을 비교하거나 최적 매물을 추천받을 수 있습니다.</p>
+  </div>
+
+  <div class="compare-layout">
+    <section class="compare-select-box">
+      <h3>비교할 체크리스트 선택</h3>
+      <p class="compare-guide">최대 3개의 체크리스트를 선택할 수 있습니다.</p>
+
+      <div id="compareChecklistList" class="compare-checklist-list">
+        <p>저장된 체크리스트가 없습니다.</p>
+      </div>
     </section>
+
+    <section class="compare-action-box">
+      <h3>비교 방식 선택</h3>
+
+      <button id="compareTotalScoreBtn" class="compare-action-btn">
+        총점수 기반 비교
+      </button>
+
+      <button id="compareTopRatedBtn" class="compare-action-btn">
+        상위 평가 항목 개수 비교
+      </button>
+
+      <button id="recommendBestBtn" class="compare-action-btn highlight">
+        최적 매물 추천
+      </button>
+    </section> <!-- compare-action-box 끝 -->
+  </div> <!-- compare-layout 끝 -->
+</section> <!--comparePage 끝 -->
+
+<section id="compareTotalScorePage" class="page">
+  <div class="compare-header">
+    <h2>총점수 기반 비교</h2>
+    <p>선택한 체크리스트의 총점수를 기준으로 후보 매물을 비교합니다.</p>
+    <p class="compare-notice">※ 총점수 기준의 단순 비교 결과입니다.</p>
+  </div>
+
+  <div id="totalScoreResultList" class="house-result-list">
+    <p>비교 결과가 없습니다.</p>
+  </div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
+</section>
+
+<section id="compareTopRatedPage" class="page">
+  <div class="compare-header">
+    <h2>상위 평가 항목 개수 비교</h2>
+    <div class="compare-guide">
+    <p>선택한 체크리스트의 그룹별 상위 평가 항목 개수를 비교합니다.</p>
+    <p class="compare-notice">※ 상위 평가는 점수 5점에 해당하는 항목을 기준으로 산정합니다.</p>
+  </div>
+  </div>
+
+  <div id="topRatedResultList" class="house-result-list">
+    <p>비교 결과가 없습니다.</p>
+  </div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
+</section>
 
     <section id="managePage" class="page">
   <h2>내 체크리스트 관리</h2>
