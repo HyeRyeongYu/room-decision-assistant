@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Checkmate</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+        
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="top-nav">
+  <button class="nav-btn active-nav" data-page="home">
+    <span class="nav-icon">&#127969;</span>
+    <span>홈</span>
+  </button>
+
+  <button class="nav-btn" data-page="create">
+    <span class="nav-icon">&#128203;</span>
+    <span>체크리스트</span>
+  </button>
+
+  <button class="nav-btn" data-page="compare">
+    <span class="nav-icon">&#9878;</span>
+    <span>비교&추천</span>
+  </button>
+
+  <button class="nav-btn" data-page="manage">
+    <span class="nav-icon">&#128194;</span>
+    <span>내 체크리스트 관리</span>
+  </button>
+</header>
+
+  <main>
+    <section id="homePage" class="page active">
+      <div class="home-layout">
+          <img src="./logo.png" alt="Room Checkmate Logo" class="logo-img" />
+        
+
+        <div class="home-text">
+          <h1>Your<br />Room<br />Checklist<br />Decision & Selection</h1>
+          <button class="outline-btn" data-page="create">WELCOME TO ROOM CHECKMATE</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="createPage" class="page">
+      <div class="create-layout">
+        <div class="create-form">
+          <h2>Checklist</h2>
+
+          <div class="form-group">
+            <h3>매물 유형 선택</h3>
+            <div class="option-row">
+              <label><input type="radio" name="roomType" value="원룸" /> 원룸</label>
+              <label><input type="radio" name="roomType" value="빌라" /> 빌라</label>
+              <label><input type="radio" name="roomType" value="오피스텔" /> 오피스텔</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h3>계약 유형 선택</h3>
+            <div class="option-row">
+              <label><input type="radio" name="contractType" value="전세" /> 전세</label>
+              <label><input type="radio" name="contractType" value="월세" /> 월세</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h3>체크리스트 이름</h3>
+            <input id="checklistTitle" class="text-input" type="text" placeholder="예: 조영동 위너스빌" />
+          </div>
+
+          <button id="createChecklistBtn" class="main-btn">체크리스트 생성</button>
+        </div>
+
+        <div class="create-images">
+          <div class="sample-room room-img-1"></div>
+          <div class="sample-room room-img-2"></div>
+          <div class="sample-room room-img-3"></div>
+          <div class="sample-room room-img-4"></div>
+        </div>
+      </div>
+    </section>
+
+<section id="evaluationPage" class="page">
+ <div class="evaluation-header">
+
+  <div class="evaluation-info">
+    <p id="evaluationRoomInfo">
+      [체크리스트 이름 / 매물 유형 / 계약 유형]
+    </p>
+
+    <div class="evaluation-notice">
+      <p>본 기본 평가 항목은 공인중개사법 제25조 중개대상물 확인·설명서 항목을 기반으로 구성했습니다.</p>
+      <p>* 표시는 중개대상물 확인·설명서에 포함되지 않지만, 사용자의 실질적인 주거 만족도 평가를 위해 추가한 확장 평가 항목입니다.</p>
+      <p>정량적 평가를 위해 상·중·하와 거리 정도 항목은 차등 점수(5점~1점)가 부여됩니다.</p>
+    </div>
+  </div>
+
+  <h2>Checklist</h2>
+
+</div>
+
+  <div class="evaluation-actions">
+    <button id="saveChecklistBtn" class="sub-btn">체크리스트 저장</button>
+    <button id="calculateTotalScoreBtn" class="sub-btn">체크리스트 총점수 계산</button>
+  </div>
+
+  <div class="evaluation-layout">
+    <aside class="group-menu">
+      <button class="group-btn active-group" data-group="A">A. 주거 비용</button>
+      <button class="group-btn" data-group="B">B. 내부 시설물 상태</button>
+      <button class="group-btn" data-group="C">C. 외부 시설물 상태</button>
+      <button class="group-btn" data-group="D">D. 환경 상태</button>
+      <button class="group-btn" data-group="E">E. 입지 조건</button>
+      <button class="group-btn" data-group="F">F. 사용자 맞춤</button>
+      <button class="group-btn" data-group="G">G. 메모</button>
+    </aside>
+
+    <section class="evaluation-content">
+         <div id="groupA" class="eval-group active-eval-group">
+
+      <h3>A. 주거 비용 (총 5항목)</h3>
+
+      <div class="cost-table">
+        <div class="table-head">항목</div>
+        <div class="table-head">확인 / 평가 사항</div>
+        <div class="table-head">법률 설명 / 부가 설명</div>
+
+        <div class="table-cell item-name">관리비</div>
+        <div class="table-cell">
+          <label>금액  총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 만원
+        </div>
+        <div class="table-cell">매월 납부하는 관리비 금액을 입력합니다.</div>
+
+        <div class="table-cell item-name">관리비 포함 비목</div>
+        <div class="table-cell check-list">
+          <label><input type="checkbox" /> 전기료</label>
+          <label><input type="checkbox" /> 수도료</label>
+          <label><input type="checkbox" /> 가스 사용료</label>
+          <label><input type="checkbox" /> 난방비</label>
+          <label><input type="checkbox" /> 인터넷 사용료</label>
+          <label><input type="checkbox" /> TV 수신료</label>
+        </div>
+        <div class="table-cell">월 관리비에 이미 포함되어 있어 별도로 납부하지 않아도 되는 세부 항목입니다.</div>
+
+        <div class="table-cell item-name">관리비 부과 방식</div>
+        <div class="table-cell management-method">
+            <label><input type="radio" name="managementFeeMethod" value="임대인이 직접 부과"> 임대인이 직접 부과</label>
+            <label><input type="radio" name="managementFeeMethod" value="관리 규약에 따라 부과"> 관리 규약에 따라 부과</label>
+            <label><input type="radio" name="managementFeeMethod" value="그 외">그 외</label>
+            
+            <input class="cost-input other-input" type="text" placeholder="직접 입력"/>
+        </div>
+        <div class="table-cell">관리비가 어떤 방식으로 부과되는지를 확인하는 항목입니다.</div>
+
+        <div class="table-cell item-name">월세(전세)</div>
+        <div class="table-cell">
+          <label>금액  총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 만원
+        </div>
+        <div class="table-cell">계약 유형에 따른 월세 또는 전세 금액을 입력합니다.</div>
+
+        <div class="table-cell item-name">보증금</div>
+        <div class="table-cell">
+          <label>금액  총</label>
+          <input class="cost-input" type="number" placeholder="0" /> 만원
+        </div>
+        <div class="table-cell">계약 시 필요한 보증금 금액을 입력합니다.</div>
+      </div>
+    </div>
+
+      <div id="groupB" class="eval-group">
+  <h3>B. 내부 시설물 상태 (총 13항목)</h3>
+
+  <div class="cost-table">
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+    <div class="table-cell item-name">수도</div>
+    <div class="table-cell detail-cell">
+      <p>수압</p>
+      <label><input type="radio" name="waterPressure" value="상"> 상</label>
+      <label><input type="radio" name="waterPressure" value="중"> 중</label>
+      <label><input type="radio" name="waterPressure" value="하"> 하</label>
+
+      <p>온수</p>
+      <label><input type="radio" name="hotWater" value="상"> 상</label>
+      <label><input type="radio" name="hotWater" value="중"> 중</label>
+      <label><input type="radio" name="hotWater" value="하"> 하</label>
+
+      <p>파손 여부</p>
+      <label><input type="radio" name="waterDamage" value="없음"> 없음</label>
+      <label><input type="radio" name="waterDamage" value="있음"> 있음</label>
+      <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      수압, 온수 공급 상태와 수도 설비의 파손 여부를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">전기</div>
+    <div class="table-cell detail-cell">
+      <p>콘센트 상태</p>
+      <label><input type="radio" name="electricLevel" value="상"> 상</label>
+      <label><input type="radio" name="electricLevel" value="중"> 중</label>
+      <label><input type="radio" name="electricLevel" value="하"> 하</label>
+
+      <p>콘센트 개수</p>
+      <input class="cost-input small-input" type="number" placeholder="0"> 개
+
+      <p>기타 특이사항</p>
+      <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      콘센트, 조명, 차단기 등 전기 설비의 정상 작동 여부를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">가스</div>
+    <div class="table-cell detail-cell">
+      <p>취사용 가능 여부</p>
+      <label><input type="radio" name="gasAvailable" value="가능"> 가능</label>
+      <label><input type="radio" name="gasAvailable" value="불가능"> 불가능</label>
+
+      <p>종류</p>
+      <label><input type="radio" name="gasType" value="도시가스"> 도시가스</label>
+      <label><input type="radio" name="gasType" value="LPG"> LPG</label>
+      <label><input type="radio" name="gasType" value="그 외"> 그 외</label>
+      <input class="cost-input other-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      취사용 가스 사용 가능 여부와 공급 종류를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">소방</div>
+    <div class="table-cell detail-cell">
+      <p>단독 경보형 감지기</p>
+      <label><input type="radio" name="fireAlarm" value="있음"> 있음</label>
+      <label><input type="radio" name="fireAlarm" value="없음"> 없음</label>
+
+      <p>소화기</p>
+      <label><input type="radio" name="extinguisher" value="있음"> 있음</label>
+      <label><input type="radio" name="extinguisher" value="없음"> 없음</label>
+
+      <p>스프링쿨러</p>
+      <label><input type="radio" name="sprinkler" value="있음"> 있음</label>
+      <label><input type="radio" name="sprinkler" value="없음"> 없음</label>
+
+      <p>비상구</p>
+      <label><input type="radio" name="emergencyExit" value="있음"> 있음</label>
+      <label><input type="radio" name="emergencyExit" value="없음"> 없음</label>
+    </div>
+    <div class="table-cell">
+      ※ 「 화재예방, 소방시설 설치ㆍ유지 및 안전관리에 관한 법률 」 제8조 및 같은 법 시행령 제13조: 아파트(주택으로 사용하는 층수가 5개 층 이상인 주택) 및 기숙사를 제외한 일반 주택(단독, 다세대, 연립 등)의 경우, 주택용 소방시설로서 소화기와 단독경보형 감지기를 의무적으로 설치해야 합니다.
+
+    </div>
+
+    <div class="table-cell item-name">난방 방식</div>
+    <div class="table-cell detail-cell">
+      <p>공급 방식</p>
+      <label><input type="radio" name="heatingMethod" value="개별난방"> 개별난방</label>
+      <label><input type="radio" name="heatingMethod" value="중앙난방"> 중앙난방</label>
+      <label><input type="radio" name="heatingMethod" value="그 외"> 그 외</label>
+      <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+      <p>정상 여부</p>
+      <label><input type="radio" name="heatingStatus" value="정상"> 정상</label>
+      <label><input type="radio" name="heatingStatus" value="수리 필요"> 수리 필요</label>
+
+      <p>공급 종류</p>
+      <label><input type="radio" name="heatingType" value="도시가스"> 도시가스</label>
+      <label><input type="radio" name="heatingType" value="전기"> 전기</label>
+      <label><input type="radio" name="heatingType" value="기름"> 기름</label>
+      <label><input type="radio" name="heatingType" value="그 외"> 그 외</label>
+      <input class="cost-input other-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      난방 공급 방식, 정상 작동 여부, 에너지원 종류를 확인합니다.
+    </div>
+    <div class="table-cell item-name">배수</div>
+
+<div class="table-cell detail-cell">
+
+  <p>변기</p>
+  <label><input type="radio" name="toiletDrain" value="상"> 상</label>
+  <label><input type="radio" name="toiletDrain" value="중"> 중</label>
+  <label><input type="radio" name="toiletDrain" value="하"> 하</label>
+
+  <p>세면대</p>
+  <label><input type="radio" name="sinkDrain" value="상"> 상</label>
+  <label><input type="radio" name="sinkDrain" value="중"> 중</label>
+  <label><input type="radio" name="sinkDrain" value="하"> 하</label>
+
+  <p>싱크대</p>
+  <label><input type="radio" name="kitchenDrain" value="상"> 상</label>
+  <label><input type="radio" name="kitchenDrain" value="중"> 중</label>
+  <label><input type="radio" name="kitchenDrain" value="하"> 하</label>
+
+  <p>욕조</p>
+  <label><input type="radio" name="bathDrain" value="상"> 상</label>
+  <label><input type="radio" name="bathDrain" value="중"> 중</label>
+  <label><input type="radio" name="bathDrain" value="하"> 하</label>
+
+  <p>역류 여부</p>
+  <label><input type="radio" name="drainBackflow" value="없음"> 없음</label>
+  <label><input type="radio" name="drainBackflow" value="있음"> 있음</label>
+  <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+</div>
+
+<div class="table-cell">
+  변기, 세면대, 싱크대, 욕조의 배수 상태와 역류 여부를 확인합니다.
+</div>
+<div class="table-cell item-name">벽면</div>
+
+<div class="table-cell detail-cell">
+
+  <p>균열 여부</p>
+  <label><input type="radio" name="wallCrack" value="없음"> 없음</label>
+  <label><input type="radio" name="wallCrack" value="있음"> 있음</label>
+  <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+  <p>누수 여부</p>
+  <label><input type="radio" name="wallLeak" value="없음"> 없음</label>
+  <label><input type="radio" name="wallLeak" value="있음"> 있음</label>
+  <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="wallLevel" value="상"> 상</label>
+  <label><input type="radio" name="wallLevel" value="중"> 중</label>
+  <label><input type="radio" name="wallLevel" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  벽면의 균열, 누수 흔적 및 전체적인 상태를 확인합니다.
+</div>
+<div class="table-cell item-name">바닥면</div>
+
+<div class="table-cell detail-cell">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="floorLevel" value="상"> 상</label>
+  <label><input type="radio" name="floorLevel" value="중"> 중</label>
+  <label><input type="radio" name="floorLevel" value="하"> 하</label>
+
+  <p>특이사항</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  바닥의 들뜸, 오염, 파손 여부 등 전체적인 상태를 확인합니다.
+</div>
+
+<div class="table-cell item-name">도배</div>
+
+<div class="table-cell detail-cell">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="wallpaperLevel" value="상"> 상</label>
+  <label><input type="radio" name="wallpaperLevel" value="중"> 중</label>
+  <label><input type="radio" name="wallpaperLevel" value="하"> 하</label>
+
+  <p>특이사항</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  도배의 오염, 찢어짐, 들뜸, 곰팡이 흔적 등을 확인합니다.
+</div>
+<div class="table-cell item-name">
+  보안 장치 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell check-list">
+  <label><input type="checkbox"> 도어락</label>
+  <label><input type="checkbox"> 인터폰</label>
+  <label><input type="checkbox"> 방범창</label>
+  <label><input type="checkbox"> 보조키</label>
+  <label><input type="checkbox"> 안전고리</label>
+</div>
+
+<div class="table-cell">
+  출입문 및 창문 관련 보안 장치의 존재 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  통신 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>통신사 가능 여부</p>
+  <label><input type="radio" name="carrierAvailable" value="가능"> 가능</label>
+  <label><input type="radio" name="carrierAvailable" value="불가능"> 불가능</label>
+  <label><input type="radio" name="carrierAvailable" value="확인 필요"> 확인 필요</label>
+
+  <p>공유기 유무</p>
+  <label><input type="radio" name="routerExists" value="있음"> 있음</label>
+  <label><input type="radio" name="routerExists" value="없음"> 없음</label>
+
+</div>
+
+<div class="table-cell">
+  인터넷 사용 가능 여부와 공유기 제공 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  가구 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>종류</p>
+
+  <label><input type="checkbox"> 수납장</label>
+  <label><input type="checkbox"> 서랍장</label>
+  <label><input type="checkbox"> 옷장</label>
+  <label><input type="checkbox"> 그 외</label>
+
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+  <p>파손 여부</p>
+  <label><input type="radio" name="furnitureDamage" value="없음"> 없음</label>
+  <label><input type="radio" name="furnitureDamage" value="있음"> 있음</label>
+  <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="furnitureLevel" value="상"> 상</label>
+  <label><input type="radio" name="furnitureLevel" value="중"> 중</label>
+  <label><input type="radio" name="furnitureLevel" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  기본 제공 가구의 종류와 파손 여부 및 상태를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  옵션 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>종류</p>
+
+  <label><input type="checkbox"> 에어컨</label>
+  <label><input type="checkbox"> 냉장고</label>
+  <label><input type="checkbox"> 인덕션</label>
+  <label><input type="checkbox"> 전자레인지</label>
+  <label><input type="checkbox"> 그 외</label>
+
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+  <p>고장 여부</p>
+  <label><input type="radio" name="optionDamage" value="없음"> 없음</label>
+  <label><input type="radio" name="optionDamage" value="있음"> 있음</label>
+  <input class="cost-input other-input" type="text" placeholder="직접 입력">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="optionLevel" value="상"> 상</label>
+  <label><input type="radio" name="optionLevel" value="중"> 중</label>
+  <label><input type="radio" name="optionLevel" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  제공되는 옵션의 종류와 고장 여부 및 상태를 확인합니다.
+</div>
+</div>
+</div>
+
+<div id="groupC" class="eval-group">
+
+  <h3>C. 외부 시설물 상태 (총 7항목)</h3>
+
+  <div class="cost-table">
+
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+<div class="table-cell item-name">승강기</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="elevatorExists" value="있음"> 있음</label>
+  <label><input type="radio" name="elevatorExists" value="없음"> 없음</label>
+
+  <p>정상 여부</p>
+  <label><input type="radio" name="elevatorStatus" value="정상"> 정상</label>
+  <label><input type="radio" name="elevatorStatus" value="이상 있음"> 이상 있음</label>
+  <label><input type="radio" name="elevatorStatus" value="해당 사항 없음"> 해당 사항 없음</label>
+
+</div>
+
+<div class="table-cell">
+  건물 내 승강기 설치 여부 및 정상 작동 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">관리실</div>
+
+<div class="table-cell detail-cell">
+
+  <p>관리실 존재 여부</p>
+  <label><input type="radio" name="officeExists" value="있음"> 있음</label>
+  <label><input type="radio" name="officeExists" value="없음"> 없음</label>
+
+  <p>건물 내부 CCTV</p>
+  <label><input type="radio" name="insideCctv" value="있음"> 있음</label>
+  <label><input type="radio" name="insideCctv" value="없음"> 없음</label>
+  <p>수량</p>
+  <input
+    class="cost-input small-input"
+    type="number"
+    placeholder="0"
+  />
+
+</div>
+
+<div class="table-cell">
+  관리실 운영 여부와 건물 내부 CCTV 설치 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">주변 CCTV</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="outsideCctvExists" value="있음"> 있음</label>
+  <label><input type="radio" name="outsideCctvExists" value="없음"> 없음</label>
+
+  <p>수량</p>
+  <input
+    class="cost-input small-input"
+    type="number"
+    placeholder="0"
+  />
+
+</div>
+
+<div class="table-cell">
+  건물 주변 CCTV 설치 여부와 수량을 확인합니다.
+</div>
+
+<div class="table-cell item-name">비상구</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="emergencyExitExists" value="있음"> 있음</label>
+  <label><input type="radio" name="emergencyExitExists" value="없음"> 없음</label>
+
+  <p>위치</p>
+  <label><input type="radio" name="emergencyExitLocation" value="건물 내부"> 건물 내부</label>
+  <label><input type="radio" name="emergencyExitLocation" value="건물 외부"> 건물 외부</label>
+  <label><input type="radio" name="emergencyExitLocation" value="그 외"> 그 외</label>
+
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  비상구 설치 여부와 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">벽면 및 상하부</div>
+
+<div class="table-cell detail-cell">
+
+  <p>정상 여부</p>
+
+  <label>
+    <input type="radio" name="buildingWallStatus" value="정상">
+    정상
+  </label>
+
+  <label>
+    <input type="radio" name="buildingWallStatus" value="이상 있음">
+    이상 있음
+  </label>
+<input
+    class="cost-input other-input"
+    type="text"
+    placeholder="이상 위치 입력"
+  />
+</div>
+
+<div class="table-cell">
+  건물 외벽 및 천장의 균열, 탈락, 누수 흔적 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  건물 관리 상태 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>공용부 파손 여부</p>
+
+  <label>
+    <input type="radio" name="commonAreaDamage" value="없음">
+    없음
+  </label>
+
+  <label>
+    <input type="radio" name="commonAreaDamage" value="있음">
+    있음
+  </label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="이상 위치 입력"
+  />
+
+</div>
+
+<div class="table-cell">
+  복도, 계단, 출입구 등 공용 공간의 파손 여부를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  공동 현관 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>잠금 여부</p>
+
+  <label>
+    <input type="radio" name="mainEntranceLock" value="잠금">
+    잠금
+  </label>
+
+  <label>
+    <input type="radio" name="mainEntranceLock" value="미잠금">
+    미잠금
+  </label>
+
+</div>
+
+<div class="table-cell">
+  공동 현관 출입 통제 여부를 확인합니다.
+</div>
+  </div>
+</div>
+
+<div id="groupD" class="eval-group">
+  <h3>D. 환경 상태 (총 9항목)</h3>
+
+  <div class="cost-table">
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+    <div class="table-cell item-name">일조량</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="sunlightLevel" value="상"> 상</label>
+      <label><input type="radio" name="sunlightLevel" value="중"> 중</label>
+      <label><input type="radio" name="sunlightLevel" value="하"> 하</label>
+
+      <p>불충분 이유</p>
+      <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+    </div>
+    <div class="table-cell">
+      채광 상태와 일조량이 부족한 이유를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">소음</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="noiseLevel" value="상"> 상</label>
+      <label><input type="radio" name="noiseLevel" value="중"> 중</label>
+      <label><input type="radio" name="noiseLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      외부 소음이나 층간 소음 등 생활 소음 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">진동</div>
+    <div class="table-cell detail-cell">
+      <p>상태 정도</p>
+      <label><input type="radio" name="vibrationLevel" value="상"> 상</label>
+      <label><input type="radio" name="vibrationLevel" value="중"> 중</label>
+      <label><input type="radio" name="vibrationLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      주변 도로, 철도, 공사 등으로 인한 진동 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">지형</div>
+    <div class="table-cell detail-cell">
+      <p>경사도</p>
+      <label><input type="radio" name="slopeLevel" value="상"> 상</label>
+      <label><input type="radio" name="slopeLevel" value="중"> 중</label>
+      <label><input type="radio" name="slopeLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      건물 주변 지형의 경사 정도를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">벌레</div>
+    <div class="table-cell detail-cell">
+      <p>존재 여부</p>
+      <label><input type="radio" name="bugExists" value="있음"> 있음</label>
+      <label><input type="radio" name="bugExists" value="없음"> 없음</label>
+
+      <p>상태 정도</p>
+      <label><input type="radio" name="bugLevel" value="상"> 상</label>
+      <label><input type="radio" name="bugLevel" value="중"> 중</label>
+      <label><input type="radio" name="bugLevel" value="하"> 하</label>
+    </div>
+    <div class="table-cell">
+      단순한 일회성 벌레가 아닌 구조적 문제로 인한 지속적인 벌레 발생 여부를 확인합니다.
+    </div>
+
+    <div class="table-cell item-name">
+  침수 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>장마철 침수 여부</p>
+  <label><input type="radio" name="floodExists" value="있음"> 있음</label>
+  <label><input type="radio" name="floodExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="floodLevel" value="상"> 상</label>
+  <label><input type="radio" name="floodLevel" value="중"> 중</label>
+  <label><input type="radio" name="floodLevel" value="하"> 하</label>
+
+  <p>침수 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  장마철 또는 폭우 시 침수 가능성과 침수 흔적이 있는 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  곰팡이 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>존재 여부</p>
+  <label><input type="radio" name="moldExists" value="있음"> 있음</label>
+  <label><input type="radio" name="moldExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="moldLevel" value="상"> 상</label>
+  <label><input type="radio" name="moldLevel" value="중"> 중</label>
+  <label><input type="radio" name="moldLevel" value="하"> 하</label>
+
+  <p>곰팡이 발생 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  곰팡이 존재 여부와 발생 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  환풍 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>환풍기 유무</p>
+  <label><input type="radio" name="ventilatorExists" value="있음"> 있음</label>
+  <label><input type="radio" name="ventilatorExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="ventilationLevel" value="상"> 상</label>
+  <label><input type="radio" name="ventilationLevel" value="중"> 중</label>
+  <label><input type="radio" name="ventilationLevel" value="하"> 하</label>
+
+  <p>관련 요소</p>
+  <label><input type="checkbox"> 창문</label>
+  <label><input type="checkbox"> 환기</label>
+  <label><input type="checkbox"> 악취</label>
+
+  <p>악취 발생 위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  환풍기, 창문, 환기 상태 및 악취 발생 여부와 위치를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  배출 <span class="custom-mark">*</span>
+</div>
+<div class="table-cell detail-cell">
+  <p>종류</p>
+  <label><input type="checkbox"> 일반 쓰레기</label>
+  <label><input type="checkbox"> 음식물 쓰레기</label>
+  <label><input type="checkbox"> 재활용 쓰레기</label>
+
+  <p>배출요일</p>
+  <input class="cost-input memo-input" type="text" placeholder="예: 월/수/금">
+
+  <p>위치</p>
+  <input class="cost-input memo-input" type="text" placeholder="직접 입력">
+</div>
+<div class="table-cell">
+  쓰레기 배출 종류, 배출요일, 배출 위치를 확인합니다.
+</div>
+  </div>
+</div>
+
+<div id="groupE" class="eval-group">
+  <h3>E. 주변 시설 및 접근성 (총 7항목)</h3>
+
+  <div class="cost-table">
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+    <div class="table-cell item-name">도로와의 관계</div>
+
+<div class="table-cell detail-cell">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="roadCondition" value="상"> 상</label>
+  <label><input type="radio" name="roadCondition" value="중"> 중</label>
+  <label><input type="radio" name="roadCondition" value="하"> 하</label>
+
+  <p>포장 여부</p>
+  <label><input type="radio" name="roadPaved" value="포장"> 포장</label>
+  <label><input type="radio" name="roadPaved" value="미포장"> 미포장</label>
+
+  <p>접근 정도</p>
+  <label><input type="radio" name="roadAccess" value="상"> 상</label>
+  <label><input type="radio" name="roadAccess" value="중"> 중</label>
+  <label><input type="radio" name="roadAccess" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  건물과 연결된 도로의 상태, 포장 여부 및 접근 편의성을 확인합니다. ※ 해당 건축물(매물)이 접하고 있는 도로의 상태(폭, 포장 상태 등) 확인 후 보행 및 차량 통행 가능 여부의 확인이 필요합니다. 
+</div>
+
+<div class="table-cell item-name">대중교통 (버스)</div>
+
+<div class="table-cell detail-cell">
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="busDistanceLevel" value="가까움"> 가까움</label>
+  <label><input type="radio" name="busDistanceLevel" value="보통"> 보통</label>
+  <label><input type="radio" name="busDistanceLevel" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 10분"
+  >
+
+</div>
+
+<div class="table-cell">
+  버스 정류장까지의 접근성과 실제 이동 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">대중교통 (지하철)</div>
+
+<div class="table-cell detail-cell">
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="subwayDistanceLevel" value="가까움"> 가까움</label>
+  <label><input type="radio" name="subwayDistanceLevel" value="보통"> 보통</label>
+  <label><input type="radio" name="subwayDistanceLevel" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 15분"
+  >
+
+</div>
+
+<div class="table-cell">
+  지하철역까지의 접근성과 실제 이동 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">주차장</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="parkingExists" value="있음"> 있음</label>
+  <label><input type="radio" name="parkingExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="parkingLevel" value="상"> 상</label>
+  <label><input type="radio" name="parkingLevel" value="중"> 중</label>
+  <label><input type="radio" name="parkingLevel" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  주차 공간의 존재 여부와 이용 편의성을 확인합니다.
+</div>
+
+<div class="table-cell item-name">교육시설</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="educationExists" value="있음"> 있음</label>
+  <label><input type="radio" name="educationExists" value="없음"> 없음</label>
+
+  <p>종류</p>
+  <label><input type="checkbox"> 어린이집</label>
+  <label><input type="checkbox"> 유치원</label>
+  <label><input type="checkbox"> 초등학교</label>
+  <label><input type="checkbox"> 중학교</label>
+  <label><input type="checkbox"> 고등학교</label>
+  <label><input type="checkbox"> 대학교</label>
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="educationDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="educationDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="educationDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 5분"
+  >
+
+</div>
+
+<div class="table-cell">
+  주변 교육시설의 종류와 접근성을 확인합니다.
+</div>
+
+<div class="table-cell item-name">비선호 시설</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="dislikedExists" value="있음"> 있음</label>
+  <label><input type="radio" name="dislikedExists" value="없음"> 없음</label>
+
+  <p>종류</p>
+  <label><input type="checkbox"> 유흥가</label>
+  <label><input type="checkbox"> 공장</label>
+  <label><input type="checkbox"> 철도</label>
+  <label><input type="checkbox"> 고가도로</label>
+  <label><input type="checkbox"> 유해시설</label>
+
+  <label><input type="checkbox"> 그 외</label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  >
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="dislikedDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="dislikedDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="dislikedDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 3분"
+  >
+
+</div>
+
+<div class="table-cell">
+  생활 만족도를 저하시킬 수 있는 주변 시설의 존재 여부와 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  편의 시설 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>종류</p>
+  <label><input type="checkbox"> 편의점</label>
+  <label><input type="checkbox"> 마트</label>
+  <label><input type="checkbox"> 약국</label>
+  <label><input type="checkbox"> 병원</label>
+  <label><input type="checkbox"> 카페</label>
+  <label><input type="checkbox"> 은행</label>
+
+  <label><input type="checkbox"> 그 외</label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  >
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="convenienceDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="convenienceDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="convenienceDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 2분"
+  >
+
+</div>
+
+<div class="table-cell">
+  생활 편의시설의 종류와 접근성을 확인합니다.
+</div>
+ </div> 
+</div>  
+
+<div id="groupF" class="eval-group">
+  <div class="group-title-row">
+    <h3>F. 사용자 맞춤</h3>
+    <p>※ 최대 5개 항목까지 추가 가능합니다.</p>
+  </div>
+
+  <div class="custom-item-box">
+    <div class="custom-input-row">
+      <label>맞춤 그룹명</label>
+      <input id="customGroupTitle" class="cost-input memo-input" type="text" placeholder="예: 개인 선호도">
+    </div>
+
+    <div class="custom-input-row">
+      <label>맞춤 항목명</label>
+      <input id="customItemName" class="cost-input memo-input" type="text" placeholder="예: 창문 방향">
+    </div>
+
+    <div class="custom-input-row">
+      <label>상태 정도</label>
+      <label><input type="radio" name="customLevel" value="상"> 상</label>
+      <label><input type="radio" name="customLevel" value="중"> 중</label>
+      <label><input type="radio" name="customLevel" value="하"> 하</label>
+    </div>
+
+    <button id="addCustomItemBtn" class="sub-btn">맞춤 항목 추가</button>
+  </div>
+
+  <div id="customItemList" class="custom-item-list">
+  <p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>
+</div>
+</div>
+
+<div id="groupG" class="eval-group">
+  <h3>G. 메모</h3>
+
+  <div class="memo-box">
+    <div class="custom-input-row">
+      <label>메모 항목명</label>
+      <input id="memoItemName" class="cost-input memo-input" type="text" placeholder="예: 계약 전 확인사항">
+    </div>
+
+    <div class="custom-input-row memo-text-row">
+      <label>메모 내용</label>
+      <textarea id="memoContent" class="memo-textarea" placeholder="매물 확인 후 특이사항을 자유롭게 작성하세요."></textarea>
+    </div>
+  </div>
+</div>
+
+    </section>
+     </div>
+     </section> 
+
+    <section id="comparePage" class="page">
+  <div class="compare-header">
+    <h2>Checklist 비교 & 추천</h2>
+    <p>저장된 체크리스트를 선택하여 후보 매물을 비교하거나 최적 매물을 추천받을 수 있습니다.</p>
+  </div>
+
+  <div class="compare-layout">
+    <section class="compare-select-box">
+      <h3>비교할 체크리스트 선택</h3>
+      <p class="compare-guide">최대 3개의 체크리스트를 선택할 수 있습니다.</p>
+
+      <div id="compareChecklistList" class="compare-checklist-list">
+        <p>저장된 체크리스트가 없습니다.</p>
+      </div>
+    </section>
+
+    <section class="compare-action-box">
+      <h3>비교 방식 선택</h3>
+
+      <button id="compareTotalScoreBtn" class="compare-action-btn">
+        총점수 기반 비교
+      </button>
+
+      <button id="compareTopRatedBtn" class="compare-action-btn">
+        상위 평가 항목 개수 비교
+      </button>
+
+      <button id="recommendBestBtn" class="compare-action-btn highlight">
+        최적 매물 추천
+      </button>
+    </section> <!-- compare-action-box 끝 -->
+  </div> <!-- compare-layout 끝 -->
+</section> <!--comparePage 끝 -->
+
+<section id="compareTotalScorePage" class="page">
+  <div class="compare-header">
+    <h2>총점수 기반 비교</h2>
+    <p>선택한 체크리스트의 총점수를 기준으로 후보 매물을 비교합니다.</p>
+    <p class="compare-notice">※ 총점수 기준의 단순 비교 결과입니다.</p>
+  </div>
+
+  <div id="totalScoreResultList" class="house-result-list">
+    <p>비교 결과가 없습니다.</p>
+  </div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
+</section>
+
+<section id="compareTopRatedPage" class="page">
+  <div class="compare-header">
+    <h2>상위 평가 항목 개수 비교</h2>
+    <div class="compare-guide">
+    <p>선택한 체크리스트의 그룹별 상위 평가 항목 개수를 비교합니다.</p>
+    <p class="compare-notice">※ 상위 평가는 점수 5점에 해당하는 항목을 기준으로 산정합니다.</p>
+  </div>
+  </div>
+
+  <div id="topRatedResultList" class="house-result-list">
+    <p>비교 결과가 없습니다.</p>
+  </div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
+</section>
+
+<section id="recommendPage" class="page">
+  <div class="recommend-header">
+    <h2>Room Checkmate 추천</h2>
+    <p class="recommend-notice">※ 다른 매물 대비 종합적으로 가장 우수한 평가 결과입니다.</p>
+  </div>
+
+  <div class="recommend-layout">
+    <div id="recommendHouseArea" class="recommend-house-area">
+      <p>추천 결과가 없습니다.</p>
+    </div>
+
+    <div class="recommend-reason-area">
+  <div id="recommendReasonArea" class="recommend-reason-box">
+    <h3>[Room Checkmate의 추천 이유]</h3>
+    <p>추천 버튼을 누르면 추천 이유가 표시됩니다.</p>
+  </div>
+</div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
+</section>
+
+    <section id="managePage" class="page">
+  <div class="manage-header">
+    <h2>내 체크리스트 관리</h2>
+   <p class="manage-notice">
+    ※ 외부 파일 불러오기 시 기존 체크리스트 목록 뒤에 추가됩니다.</p>
+  </div>
+
+  <div class="manage-layout">
+    <div class="manage-table-wrap">
+      <div id="checklistList"></div>
+    </div>
+
+    <div class="manage-actions">
+      <button id="exportChecklistBtn" class="manage-file-btn">
+        💾 외부 파일로 저장하기
+      </button>
+
+      <label class="manage-file-btn">
+        📁 외부 파일 불러오기
+        <input id="importChecklistInput" type="file" accept=".json" hidden>
+      </label>
+    </div>
+  </div>
+</section>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
