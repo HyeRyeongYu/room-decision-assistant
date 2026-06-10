@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCompareChecklistList();
     setupCompareTotalScore();
     setupCompareTopRated();
+    setupRecommendation();
+    setupFileDataActions();
 });
 
 function setupNavigation() {
@@ -191,33 +193,48 @@ function renderChecklistList() {
         return;
     }
 
-    listArea.innerHTML = checklists
-        .map((checklist, index) => {
-            const title = checklist.checklistTitle || "제목 없음";
-            const roomType = checklist.room?.roomType || "매물 유형 없음";
-            const contractType = checklist.room?.contractType || "계약 유형 없음";
-            const createdDate = checklist.createdDate || "-";
-            const modifiedDate = checklist.modifiedDate || "-";
+    listArea.innerHTML = `
+      <table class="manage-table">
 
-            return `
-  <div class="checklist-card">
-    <strong>${index + 1}. ${title}</strong>
-    <p>${roomType} / ${contractType}</p>
-    <p>첫 생성 날짜: ${createdDate}</p>
-    <p>최종 수정 날짜: ${modifiedDate}</p>
+    <colgroup>
+      <col style="width:10%">
+      <col style="width:40%">
+      <col style="width:20%">
+      <col style="width:20%">
+      <col style="width:10%">
+    </colgroup>
 
-    <button
-      type="button"
-      class="delete-checklist-btn"
-      data-id="${checklist.id}">
-      삭제
-    </button>
-  </div>
-`;
-        })
-        .join("");
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>체크리스트 이름</th>
+        <th>첫 생성 날짜</th>
+        <th>최종 수정 날짜</th>
+        <th>관리</th>
+      </tr>
+    </thead>
+        <tbody>
+          ${checklists.map((checklist, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${checklist.checklistTitle || "제목 없음"}</td>
+              <td>${checklist.createdDate || "-"}</td>
+              <td>${checklist.modifiedDate || "-"}</td>
+              <td>
+                <button
+                  type="button"
+                  class="manage-delete-btn"
+                  data-id="${checklist.id}">
+                  삭제
+                </button>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
 
-    document.querySelectorAll(".delete-checklist-btn").forEach((button) => {
+    document.querySelectorAll(".manage-delete-btn").forEach((button) => {
         button.addEventListener("click", () => {
             deleteChecklist(Number(button.dataset.id));
         });
@@ -737,4 +754,249 @@ function renderTopRatedResult(compareResult) {
       `;
     })
     .join("");
+}
+
+function setupRecommendation() {
+    const button = document.getElementById("recommendBestBtn");
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+        const selectedChecklists = getSelectedCompareChecklists();
+
+        if (selectedChecklists.length < 2) {
+            alert("추천을 위해 체크리스트를 최소 2개 이상 선택해주세요.");
+            return;
+        }
+
+        if (selectedChecklists.length > 3) {
+            alert("체크리스트는 최대 3개까지 추천 비교할 수 있습니다.");
+            return;
+        }
+
+        const recommendResult = recommend(selectedChecklists);
+
+        renderRecommendResult(recommendResult);
+        showPage("recommend");
+    });
+}
+
+function recommend(checklists) {
+    const analyzedChecklists = checklists.map((checklist) => {
+        const totalScore = checklist.evaluationResult?.totalScore || 0;
+        const customReflection = calculateCustomItemReflection(checklist);
+        const housingCost = calculateHousingCost(checklist);
+
+        return {
+            checklist,
+            totalScore,
+            customReflection,
+            housingCost
+        };
+    });
+
+    const maxScore = Math.max(
+        ...analyzedChecklists.map((item) => item.totalScore)
+    );
+
+    const similarScoreCandidates = analyzedChecklists.filter((item) => {
+        return maxScore - item.totalScore <= 5;
+    });
+
+    similarScoreCandidates.sort((a, b) => {
+        if (b.totalScore !== a.totalScore) {
+            return b.totalScore - a.totalScore;
+        }
+
+        if (b.customReflection !== a.customReflection) {
+            return b.customReflection - a.customReflection;
+        }
+
+        return a.housingCost - b.housingCost;
+    });
+
+    const best = similarScoreCandidates[0];
+
+    return {
+        checklistTitle: best.checklist.checklistTitle,
+        roomType: best.checklist.room?.roomType || "-",
+        contractType: best.checklist.room?.contractType || "-",
+        totalScore: best.totalScore,
+        housingCost: best.housingCost,
+        housingCostText: formatHousingCost(best.checklist),
+        customItemReflection: best.customReflection,
+        recommendReason: createRecommendReasons(
+            best,
+            analyzedChecklists,
+            similarScoreCandidates
+        )
+    };
+}
+
+function calculateCustomItemReflection(checklist) {
+    if (!checklist.customItems) return 0;
+
+    return checklist.customItems.filter((item) => {
+        return convertToScore(item.evaluationLevel) === 5;
+    }).length;
+}
+
+function calculateHousingCost(checklist) {
+    const housingCost = checklist.housingCost || {};
+
+    const rentCost = Number(housingCost.rentCost || 0);
+    const managementFee = Number(housingCost.managementFee || 0);
+
+    return rentCost + managementFee;
+}
+
+function formatHousingCost(checklist) {
+    const housingCost = checklist.housingCost || {};
+
+    const rentCost = housingCost.rentCost || 0;
+    const managementFee = housingCost.managementFee || 0;
+    const deposit = housingCost.deposit || 0;
+
+    return `${rentCost} / ${managementFee} / ${deposit}`;
+}
+
+function createRecommendReasons(best, analyzedChecklists, similarScoreCandidates) {
+    const reasons = [];
+
+    const maxScore = Math.max(
+        ...analyzedChecklists.map((item) => item.totalScore)
+    );
+
+    if (best.totalScore === maxScore) {
+        reasons.push("총점이 가장 높은 매물입니다.");
+    } else {
+        reasons.push("총점이 높은 후보군에 포함된 매물입니다.");
+    }
+
+    if (best.customReflection > 0) {
+        reasons.push("사용자 맞춤 항목에서 높은 평가를 받았습니다.");
+    }
+
+    if (similarScoreCandidates.length > 1) {
+        const minHousingCost = Math.min(
+            ...similarScoreCandidates.map((item) => item.housingCost)
+        );
+
+        if (best.housingCost === minHousingCost) {
+            reasons.push("유사한 평가 결과를 가진 매물 대비 주거 비용이 낮습니다.");
+        }
+    }
+
+    return reasons;
+}
+
+function renderRecommendResult(result) {
+    const houseArea = document.getElementById("recommendHouseArea");
+    const reasonArea = document.getElementById("recommendReasonArea");
+
+    if (!houseArea || !reasonArea) return;
+
+    houseArea.innerHTML = `
+      <div class="recommend-house-card">
+        <img class="house-frame-img" src="./assets/right-house-frame.png" alt="추천 매물 결과 카드">
+
+        <div class="recommend-house-content">
+          <h3>- 최적 추천 매물 -</h3>
+
+          <div class="property-summary">  
+            [${result.checklistTitle} / ${result.roomType} / ${result.contractType}]
+          </div>
+          
+          <div class="detail-info">
+          <p>총점수 : ${result.totalScore}점</p>
+          <p>맞춤 항목 반영 : ${result.customItemReflection}개</p>
+          <p>주거비용 : ${result.housingCostText}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    reasonArea.innerHTML = `
+      <h3>[Room Checkmate의 추천 이유]</h3>
+      ${result.recommendReason
+        .map((reason) => `<p>- ${reason}</p>`)
+        .join("")}
+    `;
+}
+
+function setupFileDataActions() {
+    const exportButton = document.getElementById("exportChecklistBtn");
+    const importInput = document.getElementById("importChecklistInput");
+
+    if (exportButton) {
+        exportButton.addEventListener("click", exportChecklistsToFile);
+    }
+
+    if (importInput) {
+        importInput.addEventListener("change", importChecklistsFromFile);
+    }
+}
+
+function exportChecklistsToFile() {
+    const checklists = loadChecklists();
+
+    if (checklists.length === 0) {
+        alert("외부 파일로 저장할 체크리스트가 없습니다.");
+        return;
+    }
+
+    const jsonData = JSON.stringify(checklists, null, 2);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = `room-checkmate-checklists-${getTodayString()}.json`;
+    downloadLink.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function importChecklistsFromFile(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        try {
+            const importedChecklists = JSON.parse(reader.result);
+
+            if (!Array.isArray(importedChecklists)) {
+                alert("올바른 체크리스트 파일이 아닙니다.");
+                return;
+            }
+
+            const currentChecklists = loadChecklists();
+
+            const normalizedImported = importedChecklists.map((checklist) => ({
+                ...checklist,
+                id: Date.now() + Math.floor(Math.random() * 100000),
+                checklistTitle: `${checklist.checklistTitle || "불러온 체크리스트"} (Imported)`,
+                modifiedDate: getTodayString()
+            }));
+
+            const mergedChecklists = [
+                ...currentChecklists,
+                ...normalizedImported
+            ];
+
+            saveChecklists(mergedChecklists);
+            renderChecklistList();
+            renderCompareChecklistList();
+
+            alert("외부 파일에서 체크리스트를 불러왔습니다.");
+        } catch (error) {
+            alert("파일을 불러오는 중 오류가 발생했습니다.");
+        }
+
+        event.target.value = "";
+    };
+
+    reader.readAsText(file);
 }

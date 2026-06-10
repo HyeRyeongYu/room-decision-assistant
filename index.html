@@ -1162,11 +1162,53 @@
   </button>
 </section>
 
-    <section id="managePage" class="page">
-  <h2>내 체크리스트 관리</h2>
-  <div id="checklistList"></div>
+<section id="recommendPage" class="page">
+  <div class="recommend-header">
+    <h2>Room Checkmate 추천</h2>
+    <p class="recommend-notice">※ 다른 매물 대비 종합적으로 가장 우수한 평가 결과입니다.</p>
+  </div>
+
+  <div class="recommend-layout">
+    <div id="recommendHouseArea" class="recommend-house-area">
+      <p>추천 결과가 없습니다.</p>
+    </div>
+
+    <div class="recommend-reason-area">
+  <div id="recommendReasonArea" class="recommend-reason-box">
+    <h3>[Room Checkmate의 추천 이유]</h3>
+    <p>추천 버튼을 누르면 추천 이유가 표시됩니다.</p>
+  </div>
+</div>
+
+  <button class="sub-btn back-compare-btn" data-page="compare">
+    비교&추천 화면으로 돌아가기
+  </button>
 </section>
-  </main>
+
+    <section id="managePage" class="page">
+  <div class="manage-header">
+    <h2>내 체크리스트 관리</h2>
+   <p class="manage-notice">
+    ※ 외부 파일 불러오기 시 기존 체크리스트 목록 뒤에 추가됩니다.</p>
+  </div>
+
+  <div class="manage-layout">
+    <div class="manage-table-wrap">
+      <div id="checklistList"></div>
+    </div>
+
+    <div class="manage-actions">
+      <button id="exportChecklistBtn" class="manage-file-btn">
+        💾 외부 파일로 저장하기
+      </button>
+
+      <label class="manage-file-btn">
+        📁 외부 파일 불러오기
+        <input id="importChecklistInput" type="file" accept=".json" hidden>
+      </label>
+    </div>
+  </div>
+</section>
 
   <script src="./js/main.js"></script>
 </body>
