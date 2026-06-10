@@ -514,3 +514,26 @@ body {
 .delete-custom-btn:hover {
   background-color: #e5dccd;
 }
+
+.memo-box {
+  border: 2px solid #d7ccbd;
+  border-radius: 20px;
+  padding: 24px;
+  background-color: #fffaf0;
+}
+
+.memo-text-row {
+  align-items: flex-start;
+}
+
+.memo-textarea {
+  width: 70%;
+  min-height: 180px;
+  padding: 16px;
+  border: 2px solid #9c8f84;
+  border-radius: 16px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  resize: vertical;
+  background-color: #fffaf0;
+}
