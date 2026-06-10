@@ -832,6 +832,247 @@
   </div>
 </div>
 
+<div id="groupE" class="eval-group">
+  <h3>E. 주변 시설 및 접근성</h3>
+
+  <div class="cost-table">
+    <div class="table-head">항목</div>
+    <div class="table-head">확인 / 평가 사항</div>
+    <div class="table-head">법률 설명 / 부가 설명</div>
+
+    <div class="table-cell item-name">도로와의 관계</div>
+
+<div class="table-cell detail-cell">
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="roadCondition" value="상"> 상</label>
+  <label><input type="radio" name="roadCondition" value="중"> 중</label>
+  <label><input type="radio" name="roadCondition" value="하"> 하</label>
+
+  <p>포장 여부</p>
+  <label><input type="radio" name="roadPaved" value="포장"> 포장</label>
+  <label><input type="radio" name="roadPaved" value="미포장"> 미포장</label>
+
+  <p>접근 정도</p>
+  <label><input type="radio" name="roadAccess" value="상"> 상</label>
+  <label><input type="radio" name="roadAccess" value="중"> 중</label>
+  <label><input type="radio" name="roadAccess" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  건물과 연결된 도로의 상태, 포장 여부 및 접근 편의성을 확인합니다. ※ 해당 건축물(매물)이 접하고 있는 도로의 상태(폭, 포장 상태 등) 확인 후 보행 및 차량 통행 가능 여부의 확인이 필요합니다. 
+</div>
+
+<div class="table-cell item-name">대중교통 (버스)</div>
+
+<div class="table-cell detail-cell">
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="busDistanceLevel" value="가까움"> 가까움</label>
+  <label><input type="radio" name="busDistanceLevel" value="보통"> 보통</label>
+  <label><input type="radio" name="busDistanceLevel" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 10분"
+  >
+
+</div>
+
+<div class="table-cell">
+  버스 정류장까지의 접근성과 실제 이동 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">대중교통 (지하철)</div>
+
+<div class="table-cell detail-cell">
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="subwayDistanceLevel" value="가까움"> 가까움</label>
+  <label><input type="radio" name="subwayDistanceLevel" value="보통"> 보통</label>
+  <label><input type="radio" name="subwayDistanceLevel" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 15분"
+  >
+
+</div>
+
+<div class="table-cell">
+  지하철역까지의 접근성과 실제 이동 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">주차장</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="parkingExists" value="있음"> 있음</label>
+  <label><input type="radio" name="parkingExists" value="없음"> 없음</label>
+
+  <p>상태 정도</p>
+  <label><input type="radio" name="parkingLevel" value="상"> 상</label>
+  <label><input type="radio" name="parkingLevel" value="중"> 중</label>
+  <label><input type="radio" name="parkingLevel" value="하"> 하</label>
+
+</div>
+
+<div class="table-cell">
+  주차 공간의 존재 여부와 이용 편의성을 확인합니다.
+</div>
+
+<div class="table-cell item-name">교육시설</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="educationExists" value="있음"> 있음</label>
+  <label><input type="radio" name="educationExists" value="없음"> 없음</label>
+
+  <p>종류</p>
+  <label><input type="checkbox"> 어린이집</label>
+  <label><input type="checkbox"> 유치원</label>
+  <label><input type="checkbox"> 초등학교</label>
+  <label><input type="checkbox"> 중학교</label>
+  <label><input type="checkbox"> 고등학교</label>
+  <label><input type="checkbox"> 대학교</label>
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="educationDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="educationDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="educationDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 5분"
+  >
+
+</div>
+
+<div class="table-cell">
+  주변 교육시설의 종류와 접근성을 확인합니다.
+</div>
+
+<div class="table-cell item-name">비선호 시설</div>
+
+<div class="table-cell detail-cell">
+
+  <p>존재 여부</p>
+  <label><input type="radio" name="dislikedExists" value="있음"> 있음</label>
+  <label><input type="radio" name="dislikedExists" value="없음"> 없음</label>
+
+  <p>종류</p>
+  <label><input type="checkbox"> 유흥가</label>
+  <label><input type="checkbox"> 공장</label>
+  <label><input type="checkbox"> 철도</label>
+  <label><input type="checkbox"> 고가도로</label>
+  <label><input type="checkbox"> 유해시설</label>
+
+  <label><input type="checkbox"> 그 외</label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  >
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="dislikedDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="dislikedDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="dislikedDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 3분"
+  >
+
+</div>
+
+<div class="table-cell">
+  생활 만족도를 저하시킬 수 있는 주변 시설의 존재 여부와 거리를 확인합니다.
+</div>
+
+<div class="table-cell item-name">
+  편의 시설 <span class="custom-mark">*</span>
+</div>
+
+<div class="table-cell detail-cell">
+
+  <p>종류</p>
+  <label><input type="checkbox"> 편의점</label>
+  <label><input type="checkbox"> 마트</label>
+  <label><input type="checkbox"> 약국</label>
+  <label><input type="checkbox"> 병원</label>
+  <label><input type="checkbox"> 카페</label>
+  <label><input type="checkbox"> 은행</label>
+
+  <label><input type="checkbox"> 그 외</label>
+  <input
+    class="cost-input other-input"
+    type="text"
+    placeholder="직접 입력"
+  >
+
+  <p>거리 정도</p>
+  <label><input type="radio" name="convenienceDistance" value="가까움"> 가까움</label>
+  <label><input type="radio" name="convenienceDistance" value="보통"> 보통</label>
+  <label><input type="radio" name="convenienceDistance" value="멀음"> 멀음</label>
+
+  <p>매물로부터 거리</p>
+  <input
+    class="cost-input memo-input"
+    type="text"
+    placeholder="예: 도보 2분"
+  >
+
+</div>
+
+<div class="table-cell">
+  생활 편의시설의 종류와 접근성을 확인합니다.
+</div>
+ </div> 
+</div>  
+
+<div id="groupF" class="eval-group">
+  <div class="group-title-row">
+    <h3>F. 사용자 맞춤</h3>
+    <p>※ 최대 5개 항목까지 추가 가능합니다.</p>
+  </div>
+
+  <div class="custom-item-box">
+    <div class="custom-input-row">
+      <label>맞춤 그룹명</label>
+      <input id="customGroupTitle" class="cost-input memo-input" type="text" placeholder="예: 개인 선호도">
+    </div>
+
+    <div class="custom-input-row">
+      <label>맞춤 항목명</label>
+      <input id="customItemName" class="cost-input memo-input" type="text" placeholder="예: 창문 방향">
+    </div>
+
+    <div class="custom-input-row">
+      <label>상태 정도</label>
+      <label><input type="radio" name="customLevel" value="상"> 상</label>
+      <label><input type="radio" name="customLevel" value="중"> 중</label>
+      <label><input type="radio" name="customLevel" value="하"> 하</label>
+    </div>
+
+    <button id="addCustomItemBtn" class="sub-btn">맞춤 항목 추가</button>
+  </div>
+
+  <div id="customItemList" class="custom-item-list">
+  <p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>
+</div>
+</div>
     </section>
 
     <section id="comparePage" class="page">

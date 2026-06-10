@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupCreateChecklist();
   renderChecklistList();
   setupGroupTabs();
+  setupCustomItem();
 });
 
 function setupNavigation() {
@@ -101,8 +102,11 @@ function setupCreateChecklist() {
   modifiedDate: now
 };
 
+// FileData.loadFromLocalStorage()
     const checklists = loadChecklists();
+    // FileData.addChecklist(checklist)
     checklists.push(checklist);
+    // FileData.saveToLocalStorage(checklists)
     saveChecklists(checklists);
 
     alert("체크리스트가 생성되었습니다.");
@@ -128,12 +132,12 @@ function clearRadio(name) {
     selected.checked = false;
   }
 }
-
+// FileData.loadFromLocalStorage()
 function loadChecklists() {
   const savedData = localStorage.getItem(STORAGE_KEY);
   return savedData ? JSON.parse(savedData) : [];
 }
-
+// FileData.saveToLocalStorage()
 function saveChecklists(checklists) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(checklists));
 }
@@ -204,4 +208,77 @@ function setupGroupTabs() {
       }
     });
   });
+}
+
+function setupCustomItem() {
+  const addButton = document.getElementById("addCustomItemBtn");
+  if (!addButton) return;
+
+  addButton.addEventListener("click", () => {
+    const groupTitle = document.getElementById("customGroupTitle").value.trim();
+    const customName = document.getElementById("customItemName").value.trim();
+    const level = getSelectedValue("customLevel");
+
+    if (!groupTitle) {
+      alert("맞춤 그룹명을 입력해주세요.");
+      return;
+    }
+
+    if (!customName) {
+      alert("맞춤 항목명을 입력해주세요.");
+      return;
+    }
+
+    if (!level) {
+      alert("상태 정도를 선택해주세요.");
+      return;
+    }
+
+    const currentItems = document.querySelectorAll(".custom-item-card");
+
+    if (currentItems.length >= 5) {
+      alert("사용자 맞춤 항목은 최대 5개까지 추가할 수 있습니다.");
+      return;
+    }
+
+    addCustomItemCard(groupTitle, customName, level);
+
+    document.getElementById("customGroupTitle").value = "";
+    document.getElementById("customItemName").value = "";
+    clearRadio("customLevel");
+  });
+}
+
+function addCustomItemCard(groupTitle, customName, level) {
+  const listArea = document.getElementById("customItemList");
+  if (!listArea) return;
+
+  const emptyText = listArea.querySelector(".empty-custom-text");
+if (emptyText) {
+  emptyText.remove();
+}
+
+  const card = document.createElement("div");
+  card.className = "custom-item-card";
+
+  card.innerHTML = `
+  <div class="custom-item-header">
+    <strong>${groupTitle}</strong>
+    <button type="button" class="delete-custom-btn">삭제</button>
+  </div>
+
+  <p class="custom-item-content">${customName} / ${level}</p>
+`;
+
+  card.querySelector(".delete-custom-btn").addEventListener("click", () => {
+    card.remove();
+
+    if (document.querySelectorAll(".custom-item-card").length === 0) {
+  listArea.innerHTML =
+    '<p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>';
+}
+
+  });
+
+  listArea.appendChild(card);
 }

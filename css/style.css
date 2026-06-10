@@ -435,3 +435,82 @@ body {
     font-weight: 700;
     margin-left: 2px;
 }
+
+.group-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-title-row h3 {
+  margin: 0 0 20px;
+}
+
+.group-title-row p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #c45b2d;
+}
+
+.custom-item-box {
+  border: 2px solid #d7ccbd;
+  border-radius: 20px;
+  padding: 24px;
+  background-color: #fffaf0;
+}
+
+.custom-input-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.custom-input-row > label:first-child {
+  width: 110px;
+  font-weight: 700;
+}
+
+.custom-item-list {
+  margin-top: 24px;
+}
+
+.custom-item-card {
+  padding: 18px 24px;
+  margin-bottom: 16px;
+  border: 1px solid #c9beb3;
+  border-radius: 16px;
+  background-color: #fffaf0;
+}
+
+.custom-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-item-header strong {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.custom-item-content {
+  margin: 10px 0 0;
+  font-size: 18px;
+}
+
+.delete-custom-btn {
+  padding: 8px 18px;
+  border: 2px solid #7b685e;
+  border-radius: 18px;
+  background-color: #fffaf0;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-custom-btn:hover {
+  background-color: #e5dccd;
+}
