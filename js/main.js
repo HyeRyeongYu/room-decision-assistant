@@ -30,7 +30,7 @@ function showPage(pageName) {
     pages.forEach((page) => page.classList.remove("active"));
 
     const targetPage = document.getElementById(`${pageName}Page`);
-    
+
     if (targetPage) {
         targetPage.classList.add("active");
     }
@@ -159,6 +159,29 @@ function resetEvaluationForm() {
         customList.innerHTML =
             '<p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>';
     }
+
+    resetEvaluationGroupTab();
+}
+
+function resetEvaluationGroupTab() {
+    document.querySelectorAll(".group-btn").forEach((button) => {
+        button.classList.remove("active-group");
+    });
+
+    document.querySelectorAll(".eval-group").forEach((group) => {
+        group.classList.remove("active-eval-group");
+    });
+
+    const firstGroupButton = document.querySelector('.group-btn[data-group="A"]');
+    const firstGroupContent = document.getElementById("groupA");
+
+    if (firstGroupButton) {
+        firstGroupButton.classList.add("active-group");
+    }
+
+    if (firstGroupContent) {
+        firstGroupContent.classList.add("active-eval-group");
+    }
 }
 
 function getSelectedValue(name) {
@@ -220,15 +243,26 @@ function renderChecklistList() {
               <td>${checklist.checklistTitle || "제목 없음"}</td>
               <td>${checklist.createdDate || "-"}</td>
               <td>${checklist.modifiedDate || "-"}</td>
+             
               <td>
-                <button
-                  type="button"
-                  class="manage-delete-btn"
-                  data-id="${checklist.id}">
-                  삭제
-                </button>
+              <div class="manage-btn-group">
+              <button
+              type="button"
+              class="manage-open-btn"
+              data-id="${checklist.id}">
+              열기
+              </button>
+              
+              <button
+              type="button"
+              class="manage-delete-btn"
+              data-id="${checklist.id}">
+              삭제
+              </button>
+              </div>
               </td>
-            </tr>
+            
+              </tr>
           `).join("")}
         </tbody>
       </table>
@@ -239,6 +273,12 @@ function renderChecklistList() {
             deleteChecklist(Number(button.dataset.id));
         });
     });
+
+    document.querySelectorAll(".manage-open-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+        openChecklist(Number(button.dataset.id));
+    });
+});
 }
 
 function getTodayString() {
@@ -391,16 +431,42 @@ function setupScoreCalculation() {
     if (!scoreButton) return;
 
     scoreButton.addEventListener("click", () => {
-        const result = calculateTotalScore();
+    const missingItems = getMissingScoreItems();
+    const result = calculateTotalScore();
 
-        alert(
-            `총점수: ${result.totalScore} / 125점\n` +
-            `상위 평가 항목 개수: ${result.topRatedItemCount}개\n\n` +
-            `B그룹: ${result.groupScores.B}점\n` +
-            `D그룹: ${result.groupScores.D}점\n` +
-            `E그룹: ${result.groupScores.E}점`
-        );
+    let message = "";
+
+    if (missingItems.length > 0) {
+        message +=
+            `아직 평가하지 않은 기본 점수 항목이 ${missingItems.length}개 있습니다.\n` +
+            `현재 입력된 항목만 기준으로 총점수를 계산합니다.\n\n`;
+    }
+
+    message +=
+        `총점수: ${result.totalScore} / 125점\n` +
+        `상위 평가 항목 개수: ${result.topRatedItemCount}개\n\n` +
+        `B그룹: ${result.groupScores.B}점\n` +
+        `D그룹: ${result.groupScores.D}점\n` +
+        `E그룹: ${result.groupScores.E}점`;
+
+    alert(message);
+});
+}
+
+function getMissingScoreItems() {
+    const missingItems = [];
+
+    Object.keys(SCORE_GROUPS).forEach((groupTitle) => {
+        SCORE_GROUPS[groupTitle].forEach((name) => {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+
+            if (!selected) {
+                missingItems.push(`${groupTitle}그룹 - ${name}`);
+            }
+        });
     });
+
+    return missingItems;
 }
 
 function calculateTotalScore() {
@@ -515,11 +581,13 @@ function getEvaluationItemsData() {
             const itemName = itemCell?.textContent.trim() || "";
 
             evaluationItems.push({
-                itemName,
-                groupTitle,
-                description: "",
-                isRequiredItem: !itemCell?.querySelector(".custom-mark"),
-                evaluationLevel: input.value
+                 itemName,
+                 groupTitle,
+                 inputName: input.name,
+                 inputType: input.type,
+                 description: "",
+                 isRequiredItem: !itemCell?.querySelector(".custom-mark"),
+                 evaluationLevel: input.value
             });
         });
     });
@@ -564,25 +632,46 @@ function deleteChecklist(checklistId) {
     alert("체크리스트가 삭제되었습니다.");
 }
 
+function openChecklist(checklistId) {
+    const checklists = loadChecklists();
+
+    const checklist = checklists.find(
+        (item) => item.id === checklistId
+    );
+
+    if (!checklist) {
+        alert("체크리스트를 찾을 수 없습니다.");
+        return;
+    }
+
+    setCurrentChecklist(checklist);
+    resetEvaluationForm();
+    showEvaluationHeader(checklist);
+    restoreEvaluationForm(checklist);
+    showPage("evaluation");
+
+    alert("체크리스트를 열었습니다. 수정 후 저장 버튼을 누르면 변경사항이 반영됩니다.");
+}
+
 function generateCompareResult(checklists, comparisonType) {
-  if (comparisonType === "totalScore") {
-    return checklists.map((checklist) => ({
-        checklistTitle: checklist.checklistTitle,
-        roomType: checklist.room?.roomType || "-",
-        contractType: checklist.room?.contractType || "-",
-        totalScore: checklist.evaluationResult?.totalScore || 0,
-        housingCost: checklist.housingCost
-    }));
-  }
+    if (comparisonType === "totalScore") {
+        return checklists.map((checklist) => ({
+            checklistTitle: checklist.checklistTitle,
+            roomType: checklist.room?.roomType || "-",
+            contractType: checklist.room?.contractType || "-",
+            totalScore: checklist.evaluationResult?.totalScore || 0,
+            housingCost: checklist.housingCost
+        }));
+    }
 
-  if (comparisonType === "topRated") {
-    return checklists.map((checklist) => ({
-      checklistTitle: checklist.checklistTitle,
-      groupTopRatedCounts: calculateTopRatedCounts(checklist)
-    }));
-  }
+    if (comparisonType === "topRated") {
+        return checklists.map((checklist) => ({
+            checklistTitle: checklist.checklistTitle,
+            groupTopRatedCounts: calculateTopRatedCounts(checklist)
+        }));
+    }
 
-  return [];
+    return [];
 }
 
 function renderCompareChecklistList() {
@@ -650,18 +739,18 @@ function getSelectedCompareChecklists() {
 }
 
 function renderTotalScoreResult(compareResult) {
-  const resultArea = document.getElementById("totalScoreResultList");
-  if (!resultArea) return;
+    const resultArea = document.getElementById("totalScoreResultList");
+    if (!resultArea) return;
 
-  resultArea.innerHTML = compareResult
-    .map((result) => {
-      const housingCost = result.housingCost || {};
-      const managementFee = housingCost.managementFee || 0;
-      const rentCost = housingCost.rentCost || 0;
-      const deposit = housingCost.deposit || 0;
-      const housingCostText = `${rentCost} / ${managementFee} / ${deposit}`;
+    resultArea.innerHTML = compareResult
+        .map((result) => {
+            const housingCost = result.housingCost || {};
+            const managementFee = housingCost.managementFee || 0;
+            const rentCost = housingCost.rentCost || 0;
+            const deposit = housingCost.deposit || 0;
+            const housingCostText = `${rentCost} / ${managementFee} / ${deposit}`;
 
-      return `
+            return `
         <div class="house-result-card">
           <img class="house-frame-img" src="./assets/right-house-frame.png" alt="집 모양 결과 카드">
 
@@ -673,8 +762,8 @@ function renderTotalScoreResult(compareResult) {
           </div>
         </div>
       `;
-    })
-    .join("");
+        })
+        .join("");
 }
 
 function setupCompareTopRated() {
@@ -731,15 +820,15 @@ function calculateTopRatedCounts(checklist) {
 }
 
 function renderTopRatedResult(compareResult) {
-  const resultArea = document.getElementById("topRatedResultList");
-  if (!resultArea) return;
+    const resultArea = document.getElementById("topRatedResultList");
+    if (!resultArea) return;
 
-  resultArea.innerHTML = compareResult
-    .map((result) => {
-      const counts = result.groupTopRatedCounts;
-      const totalTopRated = counts.B + counts.D + counts.E;
+    resultArea.innerHTML = compareResult
+        .map((result) => {
+            const counts = result.groupTopRatedCounts;
+            const totalTopRated = counts.B + counts.D + counts.E;
 
-      return `
+            return `
         <div class="house-result-card">
           <img class="house-frame-img" src="./assets/right-house-frame.png" alt="집 모양 결과 카드">
 
@@ -752,8 +841,8 @@ function renderTopRatedResult(compareResult) {
           </div>
         </div>
       `;
-    })
-    .join("");
+        })
+        .join("");
 }
 
 function setupRecommendation() {
@@ -918,8 +1007,8 @@ function renderRecommendResult(result) {
     reasonArea.innerHTML = `
       <h3>[Room Checkmate의 추천 이유]</h3>
       ${result.recommendReason
-        .map((reason) => `<p>- ${reason}</p>`)
-        .join("")}
+            .map((reason) => `<p>- ${reason}</p>`)
+            .join("")}
     `;
 }
 
@@ -999,4 +1088,67 @@ function importChecklistsFromFile(event) {
     };
 
     reader.readAsText(file);
+}
+
+function restoreEvaluationForm(checklist) {
+    restoreHousingCost(checklist);
+    restoreEvaluationItems(checklist);
+    restoreCustomItems(checklist);
+    restoreMemo(checklist);
+}
+
+function restoreEvaluationItems(checklist) {
+    if (!checklist.evaluationItems) return;
+
+    checklist.evaluationItems.forEach((item) => {
+        if (!item.inputName) return;
+
+        const input = document.querySelector(
+            `input[name="${item.inputName}"][value="${item.evaluationLevel}"]`
+        );
+
+        if (input) {
+            input.checked = true;
+        }
+    });
+}
+
+function restoreHousingCost(checklist) {
+    const costInputs = document.querySelectorAll("#groupA .cost-input");
+    const housingCost = checklist.housingCost || {};
+
+    if (costInputs[0]) costInputs[0].value = housingCost.managementFee || "";
+    if (costInputs[2]) costInputs[2].value = housingCost.rentCost || "";
+    if (costInputs[3]) costInputs[3].value = housingCost.deposit || "";
+}
+
+function restoreCustomItems(checklist) {
+    const customList = document.getElementById("customItemList");
+    if (!customList) return;
+
+    customList.innerHTML = "";
+
+    if (!checklist.customItems || checklist.customItems.length === 0) {
+        customList.innerHTML =
+            '<p class="empty-custom-text">추가된 사용자 맞춤 항목이 없습니다.</p>';
+        return;
+    }
+
+    checklist.customItems.forEach((item) => {
+        addCustomItemCard(
+            item.customGroupTitle,
+            item.customName,
+            item.evaluationLevel
+        );
+    });
+}
+
+function restoreMemo(checklist) {
+    const memo = checklist.memo || {};
+
+    const memoItemName = document.getElementById("memoItemName");
+    const memoContent = document.getElementById("memoContent");
+
+    if (memoItemName) memoItemName.value = memo.itemName || "";
+    if (memoContent) memoContent.value = memo.content || "";
 }

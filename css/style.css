@@ -948,19 +948,29 @@ body {
   cursor: pointer;
 }
 
-.manage-file-btn:hover {
+.manage-open-btn:hover,
+.manage-delete-btn:hover {
   background-color: #e5dccd;
 }
 
+/* 체크리스트 열기 및 삭제 버튼 그룹 */
+.manage-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 체크리스트 열기 및 삭제 버튼 */
+.manage-open-btn,
 .manage-delete-btn {
-  padding: 8px 16px;
+  min-width: 70px;
+  padding: 8px 14px;
   border: 2px solid #7b685e;
   border-radius: 18px;
   background-color: #fffaf0;
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
-  min-width: 80px;
 }
 
 /* 내 체크리스트 관리 안내 문구 */
