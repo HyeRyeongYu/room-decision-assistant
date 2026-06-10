@@ -100,6 +100,7 @@
     <div class="evaluation-notice">
       <p>본 기본 평가 항목은 공인중개사법 제25조 중개대상물 확인·설명서 항목을 기반으로 구성했습니다.</p>
       <p>* 표시는 중개대상물 확인·설명서에 포함되지 않지만, 사용자의 실질적인 주거 만족도 평가를 위해 추가한 확장 평가 항목입니다.</p>
+      <p>정량적 평가를 위해 상·중·하와 거리 정도 항목은 차등 점수(5점~1점)가 부여됩니다.</p>
     </div>
   </div>
 
@@ -108,9 +109,8 @@
 </div>
 
   <div class="evaluation-actions">
-    <button class="sub-btn">맞춤 항목 추가</button>
     <button class="sub-btn">체크리스트 저장</button>
-    <button class="sub-btn">체크리스트 총점수 계산</button>
+    <button id="calculateTotalScoreBtn" class="sub-btn">체크리스트 총점수 계산</button>
   </div>
 
   <div class="evaluation-layout">
@@ -127,7 +127,7 @@
     <section class="evaluation-content">
          <div id="groupA" class="eval-group active-eval-group">
 
-      <h3>A. 주거 비용</h3>
+      <h3>A. 주거 비용 (총 5항목)</h3>
 
       <div class="cost-table">
         <div class="table-head">항목</div>
@@ -179,7 +179,7 @@
     </div>
 
       <div id="groupB" class="eval-group">
-  <h3>B. 내부 시설물 상태</h3>
+  <h3>B. 내부 시설물 상태 (총 13항목)</h3>
 
   <div class="cost-table">
     <div class="table-head">항목</div>
@@ -498,7 +498,7 @@
 
 <div id="groupC" class="eval-group">
 
-  <h3>C. 외부 시설물 상태</h3>
+  <h3>C. 외부 시설물 상태 (총 7항목)</h3>
 
   <div class="cost-table">
 
@@ -677,7 +677,7 @@
 </div>
 
 <div id="groupD" class="eval-group">
-  <h3>D. 환경 상태</h3>
+  <h3>D. 환경 상태 (총 9항목)</h3>
 
   <div class="cost-table">
     <div class="table-head">항목</div>
@@ -833,7 +833,7 @@
 </div>
 
 <div id="groupE" class="eval-group">
-  <h3>E. 주변 시설 및 접근성</h3>
+  <h3>E. 주변 시설 및 접근성 (총 7항목)</h3>
 
   <div class="cost-table">
     <div class="table-head">항목</div>

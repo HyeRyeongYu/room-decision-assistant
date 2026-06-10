@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderChecklistList();
   setupGroupTabs();
   setupCustomItem();
+  setupScoreCalculation();
 });
 
 function setupNavigation() {
@@ -281,4 +282,79 @@ if (emptyText) {
   });
 
   listArea.appendChild(card);
+}
+
+const SCORE_MAP = {
+  "상": 5,
+  "중": 3,
+  "하": 1,
+  "가까움": 5,
+  "보통": 3,
+  "멀음": 1
+};
+
+const SCORE_GROUPS = {
+  B: [
+    "waterPressure", "hotWater", "electricLevel",
+    "toiletDrain", "sinkDrain", "kitchenDrain", "bathDrain",
+    "wallLevel", "floorLevel", "wallpaperLevel",
+    "furnitureLevel", "optionLevel"
+  ],
+  D: [
+    "sunlightLevel", "noiseLevel", "vibrationLevel", "slopeLevel",
+    "bugLevel", "floodLevel", "moldLevel", "ventilationLevel"
+  ],
+  E: [
+    "roadCondition", "roadAccess", "parkingLevel",
+    "busDistanceLevel", "subwayDistanceLevel",
+    "educationDistance", "dislikedDistance", "convenienceDistance"
+  ]
+};
+
+function setupScoreCalculation() {
+  const scoreButton = document.getElementById("calculateTotalScoreBtn");
+  if (!scoreButton) return;
+
+  scoreButton.addEventListener("click", () => {
+    const result = calculateEvaluationScore();
+
+    alert(
+      `총점수: ${result.totalScore} / 140점\n` +
+      `상위 평가 항목 개수: ${result.topRatedItemCount}개\n\n` +
+      `B그룹: ${result.groupScores.B}점\n` +
+      `D그룹: ${result.groupScores.D}점\n` +
+      `E그룹: ${result.groupScores.E}점`
+    );
+  });
+}
+
+function calculateEvaluationScore() {
+  const groupScores = {};
+  let totalScore = 0;
+  let topRatedItemCount = 0;
+
+  Object.keys(SCORE_GROUPS).forEach((groupTitle) => {
+    let groupScore = 0;
+
+    SCORE_GROUPS[groupTitle].forEach((name) => {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      if (!selected) return;
+
+      const score = SCORE_MAP[selected.value] || 0;
+      groupScore += score;
+
+      if (score === 5) {
+        topRatedItemCount += 1;
+      }
+    });
+
+    groupScores[groupTitle] = groupScore;
+    totalScore += groupScore;
+  });
+
+  return {
+    totalScore,
+    groupScores,
+    topRatedItemCount
+  };
 }
